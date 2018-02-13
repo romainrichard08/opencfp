@@ -48,9 +48,11 @@ final class DeleteActionTest extends AbstractActionTestCase
         $this->assertInstanceOf(HttpFoundation\JsonResponse::class, $response);
         $this->assertSame(HttpFoundation\Response::HTTP_OK, $response->getStatusCode());
 
-        $expectedContent = \json_encode([
+        $expectedContent = \json_encode(
+            [
             'delete' => 'no',
-        ]);
+            ]
+        );
 
         $this->assertJsonStringEqualsJsonString($expectedContent, $response->getContent());
     }

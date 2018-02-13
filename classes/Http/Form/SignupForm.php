@@ -77,7 +77,11 @@ class SignupForm extends Form
             return true;
         }
 
-        /** @var HttpFoundation\File\UploadedFile $speakerPhoto */
+        /**
+* 
+         *
+ * @var HttpFoundation\File\UploadedFile $speakerPhoto 
+*/
         $speakerPhoto = $this->taintedData['speaker_photo'];
 
         // Check if the file was uploaded OK, display any error that may have occurred

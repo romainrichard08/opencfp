@@ -101,10 +101,10 @@ class ExportsController extends BaseController
         }
 
         if ($this->startsWith($info, '=')
-                || $this->startsWith($info, '+')
-                || $this->startsWith($info, '-')
-                || $this->startsWith($info, '@')
-            ) {
+            || $this->startsWith($info, '+')
+            || $this->startsWith($info, '-')
+            || $this->startsWith($info, '@')
+        ) {
             $info = "'" . $info;
         }
 
@@ -121,11 +121,13 @@ class ExportsController extends BaseController
     private function csvReturn(array $contents, string $filename = 'data')
     {
         if (\count($contents) === 0) {
-            $this->session->set('flash', [
+            $this->session->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'There were no talks that matched selected criteria.',
-            ]);
+                ]
+            );
 
             return $this->redirectTo('admin');
         }

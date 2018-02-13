@@ -71,49 +71,59 @@ class Talk extends Eloquent
     public function scopeViewedBy(Builder $query, int $userId): Builder
     {
         return $query
-            ->whereHas('meta', function (Builder $query) use ($userId) {
-                $query
-                    ->where('admin_user_id', $userId)
-                    ->where('viewed', 1);
-            });
+            ->whereHas(
+                'meta', function (Builder $query) use ($userId) {
+                    $query
+                        ->where('admin_user_id', $userId)
+                        ->where('viewed', 1);
+                }
+            );
     }
 
     public function scopeFavoritedBy(Builder $query, int $userId): Builder
     {
         return $query
-            ->whereHas('favorites', function (Builder $query) use ($userId) {
-                $query->where('admin_user_id', $userId);
-            });
+            ->whereHas(
+                'favorites', function (Builder $query) use ($userId) {
+                    $query->where('admin_user_id', $userId);
+                }
+            );
     }
 
     public function scopeRatedPlusOneBy(Builder $query, int $userId): Builder
     {
         return $query
-            ->whereHas('meta', function (Builder $query) use ($userId) {
-                $query
-                   ->where('admin_user_id', $userId)
-                   ->where('rating', 1);
-            });
+            ->whereHas(
+                'meta', function (Builder $query) use ($userId) {
+                    $query
+                        ->where('admin_user_id', $userId)
+                        ->where('rating', 1);
+                }
+            );
     }
 
     public function scopeNotRatedBy(Builder $query, int $userId): Builder
     {
         return $query
-            ->whereDoesntHave('meta', function (Builder $query) use ($userId) {
-                $query
-                    ->where('admin_user_id', $userId)
-                    ->where('rating', '!=', 0);
-            });
+            ->whereDoesntHave(
+                'meta', function (Builder $query) use ($userId) {
+                    $query
+                        ->where('admin_user_id', $userId)
+                        ->where('rating', '!=', 0);
+                }
+            );
     }
 
     public function scopeNotViewedBy(Builder $query, int $userId): Builder
     {
         return $query
-            ->whereDoesntHave('meta', function (Builder $query) use ($userId) {
-                $query
-                    ->where('admin_user_id', $userId)
-                    ->where('viewed', '!=', 0);
-            });
+            ->whereDoesntHave(
+                'meta', function (Builder $query) use ($userId) {
+                    $query
+                        ->where('admin_user_id', $userId)
+                        ->where('viewed', '!=', 0);
+                }
+            );
     }
 
     public function scopeTopRated(Builder $query): Builder
@@ -143,11 +153,13 @@ class Talk extends Eloquent
     {
         $this->comments()
             ->get()
-            ->each(function ($comment) {
-                if (!$comment->delete()) {
-                    throw new \Exception('Unable to delete all comments');
+            ->each(
+                function ($comment) {
+                    if (!$comment->delete()) {
+                        throw new \Exception('Unable to delete all comments');
+                    }
                 }
-            });
+            );
     }
 
     /**
@@ -159,11 +171,13 @@ class Talk extends Eloquent
     {
         $this->favorites()
             ->get()
-            ->each(function ($favorite) {
-                if (!$favorite->delete()) {
-                    throw new \Exception('Unable to delete all favorites');
+            ->each(
+                function ($favorite) {
+                    if (!$favorite->delete()) {
+                        throw new \Exception('Unable to delete all favorites');
+                    }
                 }
-            });
+            );
     }
 
     /**
@@ -175,11 +189,13 @@ class Talk extends Eloquent
     {
         $this->meta()
             ->get()
-            ->each(function ($meta) {
-                if (!$meta->delete()) {
-                    throw new \Exception('Unable to delete all meta info');
+            ->each(
+                function ($meta) {
+                    if (!$meta->delete()) {
+                        throw new \Exception('Unable to delete all meta info');
+                    }
                 }
-            });
+            );
     }
 
     /**
@@ -200,10 +216,12 @@ class Talk extends Eloquent
 
     private function getOrCreateMeta(int $userId)
     {
-        return $this->meta()->firstOrCreate([
+        return $this->meta()->firstOrCreate(
+            [
             'admin_user_id' => $userId,
             'talk_id'       => $this->id,
-        ]);
+            ]
+        );
     }
 
     private function getOrFailMeta(int $userId)

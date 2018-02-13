@@ -22,14 +22,18 @@ final class LogInActionTest extends WebTestCase implements TransactionalTestCase
 {
     public function testRendersLoginFormIfAuthenticationFailed()
     {
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $response = $this
-            ->post('/login', [
+            ->post(
+                '/login', [
                 'email'    => $user->email,
                 'password' => $this->faker()->password,
-            ]);
+                ]
+            );
 
         $this->assertResponseStatusCode(HttpFoundation\Response::HTTP_BAD_REQUEST, $response);
         $this->assertResponseBodyContains($user->email, $response);

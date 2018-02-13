@@ -26,10 +26,14 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
      */
     public function indexActionWorksCorrectly()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var Eloquent\Collection|User[] $speakers */
+        /**
+ * @var Eloquent\Collection|User[] $speakers 
+*/
         $speakers = factory(User::class, 3)->create();
 
         $response = $this
@@ -49,10 +53,14 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
      */
     public function viewActionDisplaysCorrectly()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 3)->create()->first();
 
         $response = $this
@@ -69,7 +77,9 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
      */
     public function viewActionRedirectsOnNonUser()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
         $response = $this
@@ -88,7 +98,9 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
      */
     public function demoteActionFailsIfUserNotFound()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -119,7 +131,9 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
      */
     public function demoteActionFailsIfDemotingSelf()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -128,11 +142,13 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
 
         $response = $this
             ->asAdmin($admin->id)
-            ->get('/admin/speakers/' . $admin->id . '/demote', [
+            ->get(
+                '/admin/speakers/' . $admin->id . '/demote', [
                 'role'     => 'Admin',
                 'token'    => $csrfToken,
                 'token_id' => 'admin_speaker_demote',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlContains('/admin/speakers', $response);
@@ -146,10 +162,14 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
      */
     public function demoteActionWorksCorrectly()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         $this->container->get(AccountManagement::class)->promoteTo(
@@ -163,11 +183,13 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
 
         $response = $this
             ->asAdmin($admin->id)
-            ->get('/admin/speakers/' . $speaker->id . '/demote', [
+            ->get(
+                '/admin/speakers/' . $speaker->id . '/demote', [
                 'role'     => 'Admin',
                 'token'    => $csrfToken,
                 'token_id' => 'admin_speaker_demote',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlContains('/admin/speakers', $response);
@@ -179,10 +201,14 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
      */
     public function demoteActionFailsWithBadToken()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         $this->container->get(AccountManagement::class)->promoteTo(
@@ -192,11 +218,13 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
 
         $response = $this
             ->asAdmin($admin->id)
-            ->get('/admin/speakers/' . $speaker->id . '/demote', [
+            ->get(
+                '/admin/speakers/' . $speaker->id . '/demote', [
                 'role'     => 'Admin',
                 'token'    => \uniqid(),
                 'token_id' => 'admin_speaker_demote',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlContains('/dashboard', $response);
@@ -207,10 +235,14 @@ final class SpeakersControllerTest extends WebTestCase implements TransactionalT
      */
     public function deleteActionFailsWithBadToken()
     {
-        /** @var User $user */
+        /**
+ * @var User $user 
+*/
         $user = factory(User::class, 1)->create()->first();
 
-        /** @var User $otherUser */
+        /**
+ * @var User $otherUser 
+*/
         $otherUser = factory(User::class, 1)->create()->first();
 
         $response = $this

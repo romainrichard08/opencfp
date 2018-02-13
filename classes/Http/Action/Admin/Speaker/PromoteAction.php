@@ -46,14 +46,16 @@ final class PromoteAction
         try {
             $user = $this->accountManagement->findById($id);
         } catch (Auth\UserNotFoundException $exception) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => \sprintf(
                     'User with id "%s" could not be found.',
                     $id
                 ),
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('admin_speakers');
 
@@ -61,14 +63,16 @@ final class PromoteAction
         }
 
         if ($user->hasAccess(\strtolower($role))) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => \sprintf(
                     'User already is in the "%s" group.',
                     $role
                 ),
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('admin_speakers');
 
@@ -81,25 +85,29 @@ final class PromoteAction
                 $role
             );
         } catch (Auth\RoleNotFoundException $exception) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => \sprintf(
                     'Role "%s" could not be found.',
                     $role
                 ),
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('admin_speakers');
 
             return new HttpFoundation\RedirectResponse($url);
         }
 
-        $request->getSession()->set('flash', [
+        $request->getSession()->set(
+            'flash', [
             'type'  => 'success',
             'short' => 'Success',
             'ext'   => '',
-        ]);
+            ]
+        );
 
         $url = $this->urlGenerator->generate('admin_speakers');
 

@@ -50,20 +50,24 @@ final class ViewAction
         $this->talkHandler->grabTalk((int) $request->get('id'));
 
         if (!$this->talkHandler->view()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Could not find requested talk',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('admin_talks');
 
             return new HttpFoundation\RedirectResponse($url);
         }
 
-        $content = $this->twig->render('admin/talks/view.twig', [
+        $content = $this->twig->render(
+            'admin/talks/view.twig', [
             'talk' => $this->talkHandler->getProfile(),
-        ]);
+            ]
+        );
 
         return new HttpFoundation\Response($content);
     }

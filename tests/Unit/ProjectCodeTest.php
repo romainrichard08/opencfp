@@ -74,29 +74,41 @@ final class ProjectCodeTest extends Framework\TestCase
 
     public function testControllerActionsUseResponseReturnType()
     {
-        $actionsWithoutReturnTypes = $this->methodNames(\array_filter($this->controllerActions(), function (\ReflectionMethod $method) {
-            $returnType = (string) $method->getReturnType();
+        $actionsWithoutReturnTypes = $this->methodNames(
+            \array_filter(
+                $this->controllerActions(), function (\ReflectionMethod $method) {
+                    $returnType = (string) $method->getReturnType();
 
-            return $returnType !== HttpFoundation\Response::class;
-        }));
+                    return $returnType !== HttpFoundation\Response::class;
+                }
+            )
+        );
 
-        $this->assertEmpty($actionsWithoutReturnTypes, \sprintf(
-            "Failed asserting that the controller actions\n\n%s\n\ndeclare \"%s\" as return type.",
-            ' - ' . \implode("\n - ", $actionsWithoutReturnTypes),
-            HttpFoundation\Response::class
-        ));
+        $this->assertEmpty(
+            $actionsWithoutReturnTypes, \sprintf(
+                "Failed asserting that the controller actions\n\n%s\n\ndeclare \"%s\" as return type.",
+                ' - ' . \implode("\n - ", $actionsWithoutReturnTypes),
+                HttpFoundation\Response::class
+            )
+        );
     }
 
     public function testControllerActionsUseActionSuffix()
     {
-        $actionsWithoutSuffix = $this->methodNames(\array_filter($this->controllerActions(), function (\ReflectionMethod $method) {
-            return \preg_match('/Action$/', $method->getName()) === 0;
-        }));
+        $actionsWithoutSuffix = $this->methodNames(
+            \array_filter(
+                $this->controllerActions(), function (\ReflectionMethod $method) {
+                    return \preg_match('/Action$/', $method->getName()) === 0;
+                }
+            )
+        );
 
-        $this->assertEmpty($actionsWithoutSuffix, \sprintf(
-            "Failed asserting that the controller actions\n\n%s\n\nuse  \"Action\" as suffix.",
-            ' - ' . \implode("\n - ", $actionsWithoutSuffix)
-        ));
+        $this->assertEmpty(
+            $actionsWithoutSuffix, \sprintf(
+                "Failed asserting that the controller actions\n\n%s\n\nuse  \"Action\" as suffix.",
+                ' - ' . \implode("\n - ", $actionsWithoutSuffix)
+            )
+        );
     }
 
     /**
@@ -134,13 +146,15 @@ final class ProjectCodeTest extends Framework\TestCase
      */
     private function methodNames(array $methods): array
     {
-        $methodNames = \array_map(function (\ReflectionMethod $method) {
-            return \sprintf(
-                '%s::%s',
-                $method->getDeclaringClass()->getName(),
-                $method->getName()
-            );
-        }, $methods);
+        $methodNames = \array_map(
+            function (\ReflectionMethod $method) {
+                return \sprintf(
+                    '%s::%s',
+                    $method->getDeclaringClass()->getName(),
+                    $method->getName()
+                );
+            }, $methods
+        );
 
         \sort($methodNames);
 
@@ -168,10 +182,12 @@ final class ProjectCodeTest extends Framework\TestCase
             'http-actions' => __DIR__ . '/../../classes/Http/Action',
         ];
 
-        return \array_map(function (string $directory) {
-            return [
-              $directory,
-            ];
-        }, $directories);
+        return \array_map(
+            function (string $directory) {
+                return [
+                $directory,
+                ];
+            }, $directories
+        );
     }
 }

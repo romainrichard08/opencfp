@@ -41,11 +41,13 @@ final class UpdateActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Read Only',
                     'ext'   => 'You cannot edit talks once the call for papers has ended',
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -73,9 +75,11 @@ final class UpdateActionTest extends Framework\TestCase
         $urlGenerator
             ->generate(
                 Argument::exact('talk_view'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'id' => $talkId,
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled()
             ->willReturn($url);
@@ -97,7 +101,9 @@ final class UpdateActionTest extends Framework\TestCase
             $applicationEndDate
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

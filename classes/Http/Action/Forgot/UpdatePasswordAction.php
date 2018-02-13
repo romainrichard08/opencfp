@@ -65,9 +65,11 @@ final class UpdatePasswordAction
         $this->resetForm->handleRequest($request);
 
         if (!$this->resetForm->isSubmitted() || !$this->resetForm->isValid()) {
-            $content = $this->twig->render('user/reset_password.twig', [
+            $content = $this->twig->render(
+                'user/reset_password.twig', [
                 'form' => $this->resetForm->createView(),
-            ]);
+                ]
+            );
 
             return new HttpFoundation\Response($content);
         }
@@ -90,11 +92,13 @@ final class UpdatePasswordAction
         }
 
         if ($user->checkPassword($password)) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Please select a different password than your current one.',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('login');
 
@@ -102,22 +106,26 @@ final class UpdatePasswordAction
         }
 
         if (!$user->attemptResetPassword($resetCode, $password)) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Password reset failed, please contact the administrator.',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('homepage');
 
             return new HttpFoundation\RedirectResponse($url);
         }
 
-        $request->getSession()->set('flash', [
+        $request->getSession()->set(
+            'flash', [
             'type'  => 'success',
             'short' => 'Success',
             'ext'   => "You've successfully reset your password.",
-        ]);
+            ]
+        );
 
         $url = $this->urlGenerator->generate('login');
 

@@ -98,10 +98,12 @@ final class SentinelAccountManagementTest extends \PHPUnit\Framework\TestCase
         $accountManagement = new SentinelAccountManagement($sentinel);
 
         $this->expectException(RoleNotFoundException::class);
-        $this->expectExceptionMessage(\sprintf(
-            'Unable to find a role with name "%s".',
-            $name
-        ));
+        $this->expectExceptionMessage(
+            \sprintf(
+                'Unable to find a role with name "%s".',
+                $name
+            )
+        );
 
         $accountManagement->findByRole($name);
     }
@@ -211,10 +213,12 @@ final class SentinelAccountManagementTest extends \PHPUnit\Framework\TestCase
         $accountManagement = new SentinelAccountManagement($sentinel);
 
         $this->expectException(RoleNotFoundException::class);
-        $this->expectExceptionMessage(\sprintf(
-            'Unable to find a role with name "%s".',
-            $name
-        ));
+        $this->expectExceptionMessage(
+            \sprintf(
+                'Unable to find a role with name "%s".',
+                $name
+            )
+        );
 
         $accountManagement->promoteTo(
             $email,
@@ -259,9 +263,11 @@ final class SentinelAccountManagementTest extends \PHPUnit\Framework\TestCase
 
         $userRepository
             ->shouldReceive('findByCredentials')
-            ->with([
+            ->with(
+                [
                 'email' => $email,
-            ])
+                ]
+            )
             ->andReturn($user);
 
         $sentinel = Mockery::mock(Sentinel::class);
@@ -305,10 +311,12 @@ final class SentinelAccountManagementTest extends \PHPUnit\Framework\TestCase
         $accountManagement = new SentinelAccountManagement($sentinel);
 
         $this->expectException(RoleNotFoundException::class);
-        $this->expectExceptionMessage(\sprintf(
-            'Unable to find a role with name "%s".',
-            $name
-        ));
+        $this->expectExceptionMessage(
+            \sprintf(
+                'Unable to find a role with name "%s".',
+                $name
+            )
+        );
 
         $accountManagement->demoteFrom(
             $email,
@@ -353,9 +361,11 @@ final class SentinelAccountManagementTest extends \PHPUnit\Framework\TestCase
 
         $userRepository
             ->shouldReceive('findByCredentials')
-            ->with([
+            ->with(
+                [
                 'email' => $email,
-            ])
+                ]
+            )
             ->andReturn($user);
 
         $sentinel = Mockery::mock(Sentinel::class);

@@ -27,7 +27,9 @@ final class TalkMetaTest extends WebTestCase implements TransactionalTestCase
      */
     public function talkRelationWorks()
     {
-        /** @var TalkMeta $meta */
+        /**
+ * @var TalkMeta $meta 
+*/
         $meta = factory(TalkMeta::class, 1)->create()->first();
 
         $talk = $meta->talk();
@@ -41,7 +43,9 @@ final class TalkMetaTest extends WebTestCase implements TransactionalTestCase
      */
     public function userRelationWorks()
     {
-        /** @var TalkMeta $meta */
+        /**
+ * @var TalkMeta $meta 
+*/
         $meta = factory(TalkMeta::class, 1)->create()->first();
 
         $user = $meta->user();

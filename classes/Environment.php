@@ -40,11 +40,13 @@ class Environment
         ];
 
         if (!\in_array($type, $types)) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Environment needs to be one of "%s"; got "%s" instead.',
-                \implode('", "', $types),
-                $type
-            ));
+            throw new \InvalidArgumentException(
+                \sprintf(
+                    'Environment needs to be one of "%s"; got "%s" instead.',
+                    \implode('", "', $types),
+                    $type
+                )
+            );
         }
 
         $this->type = $type;

@@ -43,18 +43,22 @@ final class TwigGlobalsListenerTest extends TestCase
         }
 
         $eventDispatcher = new EventDispatcher();
-        $eventDispatcher->addSubscriber(new TwigGlobalsListener(
-            $authentication,
-            $this->mockCallForPapers($isOpen),
-            $session,
-            $twig
-        ));
+        $eventDispatcher->addSubscriber(
+            new TwigGlobalsListener(
+                $authentication,
+                $this->mockCallForPapers($isOpen),
+                $session,
+                $twig
+            )
+        );
 
-        $eventDispatcher->dispatch(KernelEvents::REQUEST, new GetResponseEvent(
-            Mockery::mock(HttpKernelInterface::class),
-            Request::create($uri),
-            HttpKernelInterface::MASTER_REQUEST
-        ));
+        $eventDispatcher->dispatch(
+            KernelEvents::REQUEST, new GetResponseEvent(
+                Mockery::mock(HttpKernelInterface::class),
+                Request::create($uri),
+                HttpKernelInterface::MASTER_REQUEST
+            )
+        );
 
         $output = $twig->render('globals.txt.twig');
 

@@ -54,11 +54,13 @@ final class ProcessAction
     public function __invoke(HttpFoundation\Request $request): HttpFoundation\Response
     {
         try {
-            $this->validate($request, [
+            $this->validate(
+                $request, [
                 'email'    => 'required|email',
                 'password' => 'required',
                 'coc'      => 'accepted',
-            ]);
+                ]
+            );
 
             $this->accounts->create(
                 $request->get('email'),
@@ -70,11 +72,13 @@ final class ProcessAction
 
             $this->accounts->activate($request->get('email'));
 
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'success',
                 'short' => 'Success',
                 'ext'   => "You've successfully created your account!",
-            ]);
+                ]
+            );
 
             $this->authentication->authenticate(
                 $request->get('email'),
@@ -85,19 +89,23 @@ final class ProcessAction
 
             return new HttpFoundation\RedirectResponse($url);
         } catch (ValidationException $e) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => $e->getMessage(),
                 'ext'   => $e->errors(),
-            ]);
+                ]
+            );
 
             return new HttpFoundation\RedirectResponse($request->headers->get('referer'));
         } catch (\RuntimeException $e) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'A user already exists with that email address',
-            ]);
+                ]
+            );
 
             return new HttpFoundation\RedirectResponse($request->headers->get('referer'));
         }

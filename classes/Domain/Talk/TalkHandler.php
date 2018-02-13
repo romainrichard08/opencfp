@@ -81,11 +81,13 @@ class TalkHandler
     public function commentOn(string $message): bool
     {
         if ($this->hasTalk()) {
-            TalkComment::create([
+            TalkComment::create(
+                [
                 'user_id' => $this->userId,
                 'talk_id' => $this->talk->id,
                 'message' => $message,
-            ]);
+                ]
+            );
 
             return true;
         }
@@ -124,10 +126,12 @@ class TalkHandler
     {
         $this->talk
             ->favorites()
-            ->firstOrCreate([
+            ->firstOrCreate(
+                [
                 'admin_user_id' => $this->userId,
                 'talk_id'       => $this->talk->id,
-            ]);
+                ]
+            );
 
         return true;
     }

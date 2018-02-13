@@ -62,9 +62,11 @@ final class Kernel extends SymfonyKernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(function (ContainerBuilder $container) {
-            $this->bindConfiguration($container, $this->loadConfigurationFor($this->getEnvironment()));
-        });
+        $loader->load(
+            function (ContainerBuilder $container) {
+                $this->bindConfiguration($container, $this->loadConfigurationFor($this->getEnvironment()));
+            }
+        );
 
         $loader->load($this->getProjectDir() . '/resources/config/config_' . $this->getEnvironment() . '.yml');
     }
@@ -91,10 +93,12 @@ final class Kernel extends SymfonyKernel
         $configFile = $this->getProjectDir() . '/config/' . $environment . '.yml';
 
         if (!\file_exists($configFile)) {
-            throw new \RuntimeException(\sprintf(
-                'The config file "%s" does not exist.',
-                $configFile
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    'The config file "%s" does not exist.',
+                    $configFile
+                )
+            );
         }
 
         return \array_merge(

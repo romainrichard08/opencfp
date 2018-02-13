@@ -43,11 +43,13 @@ final class LogInActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => $exceptionMessage,
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -82,14 +84,16 @@ final class LogInActionTest extends Framework\TestCase
         $twig
             ->render(
                 Argument::exact('security/login.twig'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'email' => $email,
                     'flash' => [
                         'type'  => 'error',
                         'short' => 'Error',
                         'ext'   => $exceptionMessage,
                     ],
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled()
             ->willReturn($content);
@@ -150,7 +154,9 @@ final class LogInActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

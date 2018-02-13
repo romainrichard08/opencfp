@@ -28,7 +28,9 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
         $this->setUpTalksForTests();
     }
 
-    /** @test */
+    /**
+     * @test 
+     */
     public function recentReturnsAnArrayOfTalks()
     {
         $this->assertCount(3, Talk::recent()->get());
@@ -92,12 +94,20 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
     {
         $notRated = Talk::notRatedBy(1)->get();
         $this->assertCount(2, $notRated);
-        $this->assertTrue($notRated->contains(function ($value) {
-            return $value->title == 'talks title';
-        }));
-        $this->assertTrue($notRated->contains(function ($value) {
-            return $value->title == 'talks title NO 3';
-        }));
+        $this->assertTrue(
+            $notRated->contains(
+                function ($value) {
+                    return $value->title == 'talks title';
+                }
+            )
+        );
+        $this->assertTrue(
+            $notRated->contains(
+                function ($value) {
+                    return $value->title == 'talks title NO 3';
+                }
+            )
+        );
 
         $notRatedByUserTwo = Talk::notRatedBy(25)->get();
         $this->assertCount(3, $notRatedByUserTwo);
@@ -130,7 +140,8 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
 
     private function setUpTalksForTests()
     {
-        $talk = Talk::create([
+        $talk = Talk::create(
+            [
             'user_id'     => 7,
             'title'       => 'talks title',
             'description' => 'Long description',
@@ -138,9 +149,11 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
             'level'       => 'entry',
             'category'    => 'api',
             'selected'    => 0,
-        ]);
+            ]
+        );
 
-        $talkTwo = Talk::create([
+        $talkTwo = Talk::create(
+            [
             'user_id'     => 7,
             'title'       => 'talks title NO 2',
             'description' => 'Long description',
@@ -149,9 +162,11 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
             'category'    => 'api',
             'selected'    => 1,
 
-        ]);
+            ]
+        );
 
-        Talk::create([
+        Talk::create(
+            [
             'user_id'     => 7,
             'title'       => 'talks title NO 3',
             'description' => 'Long description',
@@ -159,36 +174,47 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
             'level'       => 'entry',
             'category'    => 'api',
             'selected'    => 0,
-        ]);
+            ]
+        );
 
-        TalkMeta::create([
+        TalkMeta::create(
+            [
             'admin_user_id' => 1,
             'talk_id'       => $talk->id,
             'rating'        => 0,
             'viewed'        => 1,
-        ]);
+            ]
+        );
 
-        TalkMeta::create([
+        TalkMeta::create(
+            [
             'admin_user_id' => 1,
             'talk_id'       => $talkTwo->id,
             'rating'        => 1,
             'viewed'        => 1,
-        ]);
-        TalkMeta::create([
+            ]
+        );
+        TalkMeta::create(
+            [
             'admin_user_id' => 2,
             'talk_id'       => $talkTwo->id,
             'rating'        => 1,
             'viewed'        => 0,
-        ]);
-        TalkMeta::create([
+            ]
+        );
+        TalkMeta::create(
+            [
             'admin_user_id' => 8,
             'talk_id'       => $talk->id,
             'rating'        => 1,
             'viewed'        => 0,
-        ]);
-        Favorite::create([
+            ]
+        );
+        Favorite::create(
+            [
             'admin_user_id' => 1,
             'talk_id'       => $talk->id,
-        ]);
+            ]
+        );
     }
 }

@@ -27,17 +27,27 @@ final class RateActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function rateActionWorksCorrectly($rating)
     {
-        /** @var Model\User $reviewer */
+        /**
+* 
+         *
+ * @var Model\User $reviewer 
+*/
         $reviewer = factory(Model\User::class)->create()->first();
 
-        /** @var Model\Talk $talk */
+        /**
+* 
+         *
+ * @var Model\Talk $talk 
+*/
         $talk = factory(Model\Talk::class, 1)->create()->first();
 
         $response = $this
             ->asReviewer($reviewer->id)
-            ->post('/reviewer/talks/' . $talk->id . '/rate', [
+            ->post(
+                '/reviewer/talks/' . $talk->id . '/rate', [
                 'rating' => $rating,
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
 
@@ -64,17 +74,27 @@ final class RateActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function rateActionReturnsFalseOnWrongRate($rating)
     {
-        /** @var Model\User $reviewer */
+        /**
+* 
+         *
+ * @var Model\User $reviewer 
+*/
         $reviewer = factory(Model\User::class)->create()->first();
 
-        /** @var Model\Talk $talk */
+        /**
+* 
+         *
+ * @var Model\Talk $talk 
+*/
         $talk = factory(Model\Talk::class, 1)->create()->first();
 
         $response = $this
             ->asReviewer($reviewer->id)
-            ->post('/reviewer/talks/' . $talk->id . '/rate', [
+            ->post(
+                '/reviewer/talks/' . $talk->id . '/rate', [
                 'rating' => $rating,
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
 

@@ -24,11 +24,13 @@ class ResetFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('password', RepeatedType::class, [
+            ->add(
+                'password', RepeatedType::class, [
                 'type'            => PasswordType::class,
                 'first_options'   => ['label' => 'Password (minimum 5 characters)'],
                 'second_options'  => ['label' => 'Password (confirm)'],
-                'invalid_message' => 'Passwords did not match', ])
+                'invalid_message' => 'Passwords did not match', ]
+            )
             ->add('user_id', HiddenType::class)
             ->add('reset_code', HiddenType::class)
             ->getForm();

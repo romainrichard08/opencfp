@@ -24,10 +24,14 @@ final class ProfileControllerTest extends WebTestCase implements TransactionalTe
      */
     public function notAbleToSeeEditPageOfOtherPersonsProfile()
     {
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
-        /** @var User $user */
+        /**
+ * @var User $user 
+*/
         $otherSpeaker = factory(User::class, 1)->create()->first();
 
         $response = $this
@@ -43,7 +47,9 @@ final class ProfileControllerTest extends WebTestCase implements TransactionalTe
      */
     public function seeEditPageWhenAllowed()
     {
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         $response = $this
@@ -58,17 +64,23 @@ final class ProfileControllerTest extends WebTestCase implements TransactionalTe
      */
     public function notAbleToEditOtherPersonsProfile()
     {
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
-        /** @var User $otherSpeaker */
+        /**
+ * @var User $otherSpeaker 
+*/
         $otherSpeaker = factory(User::class, 1)->create()->first();
 
         $response = $this
             ->asLoggedInSpeaker($speaker->id)
-            ->post('/profile/edit', [
+            ->post(
+                '/profile/edit', [
                 'id' => $otherSpeaker->id,
-            ]);
+                ]
+            );
 
         $this->assertResponseBodyNotContains('My Profile', $response);
         $this->assertResponseIsRedirect($response);
@@ -79,17 +91,21 @@ final class ProfileControllerTest extends WebTestCase implements TransactionalTe
      */
     public function canNotUpdateProfileWithInvalidData()
     {
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         $response = $this
             ->asLoggedInSpeaker($speaker->id)
-            ->post('/profile/edit', [
+            ->post(
+                '/profile/edit', [
                 'id'         => $speaker->id,
                 'email'      => $this->faker()->word,
                 'first_name' => 'First',
                 'last_name'  => 'Last',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodyContains('My Profile', $response);
@@ -101,17 +117,21 @@ final class ProfileControllerTest extends WebTestCase implements TransactionalTe
      */
     public function redirectToDashboardOnSuccessfulUpdate()
     {
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         $response = $this
             ->asLoggedInSpeaker($speaker->id)
-            ->post('/profile/edit', [
+            ->post(
+                '/profile/edit', [
                 'id'         => $speaker->id,
                 'email'      => $this->faker()->email,
                 'first_name' => 'First',
                 'last_name'  => 'Last',
-            ]);
+                ]
+            );
 
         $this->assertResponseBodyNotContains('My Profile', $response);
         $this->assertResponseIsRedirect($response);
@@ -122,7 +142,9 @@ final class ProfileControllerTest extends WebTestCase implements TransactionalTe
      */
     public function displayChangePasswordWhenAllowed()
     {
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         $response = $this

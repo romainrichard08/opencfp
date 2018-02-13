@@ -28,8 +28,10 @@ class TalkFormatter implements TalkFormat
      */
     public function formatList(Collection $talkCollection, int $adminUserId): Collection
     {
-        return $talkCollection->map(function ($talk) use ($adminUserId) {
-            return new TalkProfile($talk, $adminUserId);
-        });
+        return $talkCollection->map(
+            function ($talk) use ($adminUserId) {
+                return new TalkProfile($talk, $adminUserId);
+            }
+        );
     }
 }

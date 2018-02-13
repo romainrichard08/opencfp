@@ -39,7 +39,9 @@ final class ViewActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function talkWithNoMetaDisplaysCorrectly()
     {
-        /** @var Model\Talk $talk */
+        /**
+ * @var Model\Talk $talk 
+*/
         $talk = factory(Model\Talk::class)->create()->first();
 
         $response = $this
@@ -54,7 +56,9 @@ final class ViewActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function previouslyViewedTalksDisplaysCorrectly()
     {
-        /** @var Model\TalkMeta $talkMeta */
+        /**
+ * @var Model\TalkMeta $talkMeta 
+*/
         $talkMeta = factory(Model\TalkMeta::class)->create()->first();
 
         $response = $this

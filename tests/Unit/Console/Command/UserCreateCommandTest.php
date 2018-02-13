@@ -161,12 +161,14 @@ final class UserCreateCommandTest extends Framework\TestCase
             ->with(
                 $this->identicalTo($email),
                 $this->identicalTo($password),
-                $this->identicalTo([
+                $this->identicalTo(
+                    [
                     'first_name' => $firstName,
                     'last_name'  => $lastName,
                     'email'      => $email,
                     'password'   => $password,
-                ])
+                    ]
+                )
             )
             ->willThrowException(new Auth\UserExistsException());
 
@@ -174,12 +176,14 @@ final class UserCreateCommandTest extends Framework\TestCase
 
         $commandTester = new Console\Tester\CommandTester($command);
 
-        $commandTester->execute([
+        $commandTester->execute(
+            [
             '--first_name' => $firstName,
             '--last_name'  => $lastName,
             '--email'      => $email,
             '--password'   => $password,
-        ]);
+            ]
+        );
 
         $this->assertSame(1, $commandTester->getStatusCode());
 
@@ -210,12 +214,14 @@ final class UserCreateCommandTest extends Framework\TestCase
             ->with(
                 $this->identicalTo($email),
                 $this->identicalTo($password),
-                $this->identicalTo([
+                $this->identicalTo(
+                    [
                     'first_name' => $firstName,
                     'last_name'  => $lastName,
                     'email'      => $email,
                     'password'   => $password,
-                ])
+                    ]
+                )
             )
             ->willReturn($user);
 
@@ -228,12 +234,14 @@ final class UserCreateCommandTest extends Framework\TestCase
 
         $commandTester = new Console\Tester\CommandTester($command);
 
-        $commandTester->execute([
+        $commandTester->execute(
+            [
             '--first_name' => $firstName,
             '--last_name'  => $lastName,
             '--email'      => $email,
             '--password'   => $password,
-        ]);
+            ]
+        );
 
         $this->assertSame(0, $commandTester->getStatusCode());
         $this->assertContains('Creating User', $commandTester->getDisplay());
@@ -270,12 +278,14 @@ final class UserCreateCommandTest extends Framework\TestCase
             ->with(
                 $this->identicalTo($email),
                 $this->identicalTo($password),
-                $this->identicalTo([
+                $this->identicalTo(
+                    [
                     'first_name' => $firstName,
                     'last_name'  => $lastName,
                     'email'      => $email,
                     'password'   => $password,
-                ])
+                    ]
+                )
             )
             ->willReturn($this->createUserMock());
 
@@ -288,12 +298,14 @@ final class UserCreateCommandTest extends Framework\TestCase
 
         $commandTester = new Console\Tester\CommandTester($command);
 
-        $options = \array_merge([
+        $options = \array_merge(
+            [
             '--first_name' => $firstName,
             '--last_name'  => $lastName,
             '--email'      => $email,
             '--password'   => $password,
-        ], $options);
+            ], $options
+        );
 
         $commandTester->execute($options);
 
@@ -307,12 +319,16 @@ final class UserCreateCommandTest extends Framework\TestCase
 
         $this->assertContains($creationMessage, $commandTester->getDisplay());
 
-        $promotionMessage = \implode(PHP_EOL, \array_map(function (string $role) {
-            return \sprintf(
-                ' * promoted user to %s',
-                $role
-            );
-        }, $roles));
+        $promotionMessage = \implode(
+            PHP_EOL, \array_map(
+                function (string $role) {
+                    return \sprintf(
+                        ' * promoted user to %s',
+                        $role
+                    );
+                }, $roles
+            )
+        );
 
         $this->assertContains($promotionMessage, $commandTester->getDisplay());
         $this->assertContains('User Created', $commandTester->getDisplay());

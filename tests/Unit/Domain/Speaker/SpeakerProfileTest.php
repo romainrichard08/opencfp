@@ -53,9 +53,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $hasMadeProfile = 1;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'has_made_profile' => $hasMadeProfile,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -66,9 +68,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $hasMadeProfile = 0;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'has_made_profile' => $hasMadeProfile,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -100,9 +104,11 @@ final class SpeakerProfileTest extends Framework\TestCase
         $collection = $this->createMock(Collection::class);
         $collection->method('toArray')->willReturn($talks);
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'talks' => $collection,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -131,10 +137,12 @@ final class SpeakerProfileTest extends Framework\TestCase
         $firstName = $faker->firstName;
         $lastName  = $faker->lastName;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'first_name' => $firstName,
             'last_name'  => $lastName,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -166,9 +174,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $email = $this->faker()->email;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'email' => $email,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -194,9 +204,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $company = $this->faker()->company;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'company' => $company,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -222,9 +234,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $twitter = $this->faker()->userName;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'twitter' => $twitter,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -250,9 +264,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $url = $this->faker()->url;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'url' => $url,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -278,9 +294,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $info = $this->faker()->text;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'info' => $info,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -306,9 +324,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $bio = $this->faker()->text;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'bio' => $bio,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -337,9 +357,11 @@ final class SpeakerProfileTest extends Framework\TestCase
      */
     public function testGetTransportationReturnsFalseIfPropertyIsNotHidden($transportation)
     {
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'transportation' => $transportation,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -364,9 +386,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $transportation = 1;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'transportation' => $transportation,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -392,9 +416,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $hotel = 0;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'hotel' => $hotel,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -405,9 +431,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $hotel = 1;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'hotel' => $hotel,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -433,9 +461,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $airport = $this->faker()->company;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'airport' => $airport,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -461,9 +491,11 @@ final class SpeakerProfileTest extends Framework\TestCase
     {
         $photo = $this->faker()->url;
 
-        $speaker = $this->createUserMock([
+        $speaker = $this->createUserMock(
+            [
             'photo_path' => $photo,
-        ]);
+            ]
+        );
 
         $profile = new SpeakerProfile($speaker);
 
@@ -484,11 +516,13 @@ final class SpeakerProfileTest extends Framework\TestCase
         $user
             ->expects($this->any())
             ->method('__get')
-            ->willReturnCallback(function (string $property) use ($properties) {
-                if (\array_key_exists($property, $properties)) {
-                    return $properties[$property];
+            ->willReturnCallback(
+                function (string $property) use ($properties) {
+                    if (\array_key_exists($property, $properties)) {
+                        return $properties[$property];
+                    }
                 }
-            });
+            );
 
         return $user;
     }

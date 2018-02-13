@@ -51,7 +51,9 @@ final class TalkHandlerTest extends WebTestCase implements TransactionalTestCase
      */
     public function commentOnSetsNewComment()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create(['selected' => 0])->first();
 
         $talkHandler = new TalkHandler($this->authentication, $this->ratingSystem);
@@ -69,7 +71,9 @@ final class TalkHandlerTest extends WebTestCase implements TransactionalTestCase
      */
     public function selectSelectsTalk()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create(['selected' => 0])->first();
 
         $talkHandler = new TalkHandler($this->authentication, $this->ratingSystem);
@@ -88,7 +92,9 @@ final class TalkHandlerTest extends WebTestCase implements TransactionalTestCase
      */
     public function favoriteCreatesAndDeletesFavorites()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create(['selected' => 0])->first();
 
         $talkHandler = new TalkHandler($this->authentication, $this->ratingSystem);
@@ -138,7 +144,9 @@ final class TalkHandlerTest extends WebTestCase implements TransactionalTestCase
      */
     public function rateReturnsTrueOnSuccess()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create(['selected' => 0])->first();
 
         $talkHandler = new TalkHandler($this->authentication, $this->ratingSystem);
@@ -153,7 +161,9 @@ final class TalkHandlerTest extends WebTestCase implements TransactionalTestCase
      */
     public function rateReturnsFalseOnError()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create(['selected' => 0])->first();
 
         $ratingSystem = Mockery::mock(TalkRatingStrategy::class);
@@ -219,7 +229,9 @@ final class TalkHandlerTest extends WebTestCase implements TransactionalTestCase
      */
     public function grabTalkSetsTalkWithId()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create(['selected' => 0])->first();
 
         $talkHandler = new TalkHandler($this->authentication, $this->ratingSystem);
@@ -243,7 +255,9 @@ final class TalkHandlerTest extends WebTestCase implements TransactionalTestCase
      */
     public function getProfileReturnsTalkProfile()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create(['selected' => 0])->first();
 
         $talkHandler = new TalkHandler($this->authentication, $this->ratingSystem);

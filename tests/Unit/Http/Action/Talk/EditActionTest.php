@@ -36,11 +36,13 @@ final class EditActionTest extends AbstractActionTestCase
             ->method('set')
             ->with(
                 $this->identicalTo('flash'),
-                $this->identicalTo([
+                $this->identicalTo(
+                    [
                     'type'  => 'error',
                     'short' => 'Read Only',
                     'ext'   => 'You cannot edit talks once the call for papers has ended',
-                ])
+                    ]
+                )
             );
 
         $request = $this->createRequestMock();
@@ -82,9 +84,11 @@ final class EditActionTest extends AbstractActionTestCase
             ->method('generate')
             ->with(
                 $this->identicalTo('talk_view'),
-                $this->identicalTo([
+                $this->identicalTo(
+                    [
                     'id' => $talkId,
-                ])
+                    ]
+                )
             )
             ->willReturn($url);
 
@@ -95,7 +99,11 @@ final class EditActionTest extends AbstractActionTestCase
             $urlGenerator
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request);
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -156,7 +164,11 @@ final class EditActionTest extends AbstractActionTestCase
             $urlGenerator
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request);
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

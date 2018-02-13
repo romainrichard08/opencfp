@@ -136,9 +136,11 @@ class TalkProfile
     public function isMyFavorite(): bool
     {
         try {
-            return $this->talk->favorites()->get()->contains(function ($value) {
-                return $value->admin_user_id == $this->userId;
-            });
+            return $this->talk->favorites()->get()->contains(
+                function ($value) {
+                    return $value->admin_user_id == $this->userId;
+                }
+            );
         } catch (\Exception $e) {
             return false;
         }

@@ -25,7 +25,9 @@ final class IndexActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function indexActionWorksWithNoSpeakers()
     {
-        /** @var Model\User $reviewer */
+        /**
+ * @var Model\User $reviewer 
+*/
         $reviewer = factory(Model\User::class, 1)->create()->first();
 
         $response = $this
@@ -42,10 +44,14 @@ final class IndexActionTest extends WebTestCase implements TransactionalTestCase
     {
         $count = $this->faker()->numberBetween(3, 5);
 
-        /** @var Model\User $reviewer */
+        /**
+ * @var Model\User $reviewer 
+*/
         $reviewer = factory(Model\User::class, 1)->create()->first();
 
-        /** @var Eloquent\Collection|Model\User[] $speakers */
+        /**
+ * @var Eloquent\Collection|Model\User[] $speakers 
+*/
         $speakers = factory(Model\User::class, $count)->create();
 
         $response = $this

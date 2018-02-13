@@ -39,28 +39,38 @@ final class DeleteAction
     public function __invoke(HttpFoundation\Request $request): HttpFoundation\Response
     {
         if (!$this->callForPapers->isOpen()) {
-            return new HttpFoundation\JsonResponse([
+            return new HttpFoundation\JsonResponse(
+                [
                 'delete' => 'no',
-            ]);
+                ]
+            );
         }
 
         $talkId = $request->get('tid');
 
         $userId = $this->authentication->user()->getId();
 
-        /** @var Model\Talk $talk */
+        /**
+* 
+         *
+ * @var Model\Talk $talk 
+*/
         $talk = Model\Talk::find($talkId, ['id', 'user_id']);
 
         if ($talk->user_id != $userId) {
-            return new HttpFoundation\JsonResponse([
+            return new HttpFoundation\JsonResponse(
+                [
                 'delete' => 'no',
-            ]);
+                ]
+            );
         }
 
         $talk->delete();
 
-        return new HttpFoundation\JsonResponse([
+        return new HttpFoundation\JsonResponse(
+            [
             'delete' => 'ok',
-        ]);
+            ]
+        );
     }
 }

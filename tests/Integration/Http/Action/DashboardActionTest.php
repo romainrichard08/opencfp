@@ -35,33 +35,45 @@ final class DashboardActionTest extends WebTestCase implements TransactionalTest
     {
         $accounts = $this->container->get(AccountManagement::class);
 
-        $user = $accounts->create('someone@example.com', 'some password', [
+        $user = $accounts->create(
+            'someone@example.com', 'some password', [
             'first_name' => 'Test',
             'last_name'  => 'User',
-        ]);
+            ]
+        );
         $accounts->activate($user->getLogin());
         $accounts->promoteTo($user->getLogin(), 'admin');
 
-        Talk::create([
+        Talk::create(
+            [
             'title'       => 'Test Title',
             'description' => 'A good one!',
             'type'        => 'regular',
             'level'       => 'entry',
             'category'    => 'api',
             'user_id'     => $user->getId(),
-        ]);
+            ]
+        );
 
-        /** @var MockAuthentication $authentication */
+        /**
+ * @var MockAuthentication $authentication 
+*/
         $authentication = $this->container->get(Authentication::class);
         $authentication->overrideUser($user);
 
-        /** @var MockIdentityProvider $identityProvider */
+        /**
+ * @var MockIdentityProvider $identityProvider 
+*/
         $identityProvider = $this->container->get(IdentityProvider::class);
-        $identityProvider->overrideCurrentUser(new User([
-            'id'         => $user->getId(),
-            'first_name' => 'Test',
-            'last_name'  => 'User',
-        ]));
+        $identityProvider->overrideCurrentUser(
+            new User(
+                [
+                'id'         => $user->getId(),
+                'first_name' => 'Test',
+                'last_name'  => 'User',
+                ]
+            )
+        );
 
         $this->callForPapersIsOpen();
 
@@ -79,23 +91,33 @@ final class DashboardActionTest extends WebTestCase implements TransactionalTest
     {
         $accounts = $this->container->get(AccountManagement::class);
 
-        $user = $accounts->create('another.one@example.com', 'some password', [
+        $user = $accounts->create(
+            'another.one@example.com', 'some password', [
             'first_name' => 'Test',
             'last_name'  => 'User',
-        ]);
+            ]
+        );
         $accounts->activate($user->getLogin());
 
-        /** @var MockAuthentication $authentication */
+        /**
+ * @var MockAuthentication $authentication 
+*/
         $authentication = $this->container->get(Authentication::class);
         $authentication->overrideUser($user);
 
-        /** @var MockIdentityProvider $identityProvider */
+        /**
+ * @var MockIdentityProvider $identityProvider 
+*/
         $identityProvider = $this->container->get(IdentityProvider::class);
-        $identityProvider->overrideCurrentUser(new User([
-            'id'         => $user->getId(),
-            'first_name' => 'Test',
-            'last_name'  => 'User',
-        ]));
+        $identityProvider->overrideCurrentUser(
+            new User(
+                [
+                'id'         => $user->getId(),
+                'first_name' => 'Test',
+                'last_name'  => 'User',
+                ]
+            )
+        );
 
         $response = $this
             ->callForPapersIsOpen()

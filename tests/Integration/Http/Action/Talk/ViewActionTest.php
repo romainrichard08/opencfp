@@ -30,14 +30,16 @@ final class ViewActionTest extends WebTestCase implements TransactionalTestCase
         $user = $accounts->create('someone@example.com', 'some password');
         $accounts->activate($user->getLogin());
 
-        $talk = Model\Talk::create([
+        $talk = Model\Talk::create(
+            [
             'title'       => 'Some Talk',
             'description' => 'A good one!',
             'type'        => 'regular',
             'level'       => 'entry',
             'category'    => 'api',
             'user_id'     => $user->getId(),
-        ]);
+            ]
+        );
 
         $url = \sprintf(
             '/talk/%d',

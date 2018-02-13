@@ -47,7 +47,9 @@ final class LogOutActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action();
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

@@ -66,8 +66,8 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param string $email
-     * @param bool   $expectedResponse
+     * @param        string $email
+     * @param        bool   $expectedResponse
      * @dataProvider emailProvider
      */
     public function emailsAreBeingValidatedCorrectly($email, $expectedResponse)
@@ -134,7 +134,7 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param string $passwd
+     * @param        string $passwd
      * @dataProvider properPasswordValidator
      */
     public function properPasswordsPassValidationAndSanitization($passwd)
@@ -157,10 +157,10 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param string $passwd
-     * @param string $passwd2
-     * @param string $expectedMessage
-     * @param bool   $expectedResponse
+     * @param        string $passwd
+     * @param        string $passwd2
+     * @param        string $expectedMessage
+     * @param        bool   $expectedResponse
      * @dataProvider badPasswordProvider
      */
     public function badPasswordsAreBeingCorrectlyDetected($passwd, $passwd2, $expectedMessage, $expectedResponse)
@@ -202,8 +202,8 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param string $firstName
-     * @param bool   $expectedResponse
+     * @param        string $firstName
+     * @param        bool   $expectedResponse
      * @dataProvider firstNameProvider
      */
     public function firstNameIsValidatedCorrectly($firstName, $expectedResponse)
@@ -246,8 +246,8 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param string $lastName
-     * @param bool   $expectedResponse
+     * @param        string $lastName
+     * @param        bool   $expectedResponse
      * @dataProvider lastNameProvider
      */
     public function lastNameIsValidatedCorrectly($lastName, $expectedResponse)
@@ -291,8 +291,8 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param array $data
-     * @param bool  $expectedResponse
+     * @param        array $data
+     * @param        bool  $expectedResponse
      * @dataProvider validateAllProvider
      */
     public function validateAllWorksCorrectly($data, $expectedResponse)
@@ -334,8 +334,8 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param string $speakerInfo
-     * @param bool   $expectedResponse
+     * @param        string $speakerInfo
+     * @param        bool   $expectedResponse
      * @dataProvider speakerTextProvider
      */
     public function speakerInfoValidatedCorrectly($speakerInfo, $expectedResponse)
@@ -356,8 +356,8 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param string $speakerBio
-     * @param bool   $expectedResponse
+     * @param        string $speakerBio
+     * @param        bool   $expectedResponse
      * @dataProvider speakerTextProvider
      */
     public function speakerBioValidatedCorrectly($speakerBio, $expectedResponse)
@@ -390,8 +390,8 @@ final class SignupFormTest extends \PHPUnit\Framework\TestCase
      *
      * @test
      *
-     * @param array $inputData
-     * @param array $expectedData
+     * @param        array $inputData
+     * @param        array $expectedData
      * @dataProvider sanitizationProvider
      */
     public function dataGetsSanitizedCorrectly($inputData, $expectedData)

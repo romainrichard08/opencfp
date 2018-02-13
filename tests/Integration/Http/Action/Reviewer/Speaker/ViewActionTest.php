@@ -39,7 +39,9 @@ final class ViewActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function viewActionShowsSpeaker()
     {
-        /** @var Model\User $speaker */
+        /**
+ * @var Model\User $speaker 
+*/
         $speaker = factory(Model\User::class, 1)->create()->first();
 
         $response = $this

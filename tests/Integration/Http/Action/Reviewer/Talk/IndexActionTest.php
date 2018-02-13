@@ -25,7 +25,9 @@ final class IndexActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function indexActionWorksNormally()
     {
-        /** @var Collection|Model\Talk[] $talks */
+        /**
+ * @var Collection|Model\Talk[] $talks 
+*/
         $talks = factory(Model\Talk::class, 3)->create();
 
         $response = $this

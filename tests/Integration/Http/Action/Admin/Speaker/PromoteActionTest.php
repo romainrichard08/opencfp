@@ -27,7 +27,9 @@ final class PromoteActionTest extends WebTestCase implements TransactionalTestCa
     {
         $id = $this->faker()->numberBetween(500);
 
-        /** @var Model\User $admin */
+        /**
+ * @var Model\User $admin 
+*/
         $admin = factory(Model\User::class, 1)->create()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -64,13 +66,19 @@ final class PromoteActionTest extends WebTestCase implements TransactionalTestCa
      */
     public function promoteActionFailsIfUserIsAlreadyRole()
     {
-        /** @var Model\User $admin */
+        /**
+ * @var Model\User $admin 
+*/
         $admin = factory(Model\User::class, 1)->create()->first();
 
-        /** @var Model\User $speaker */
+        /**
+ * @var Model\User $speaker 
+*/
         $speaker = factory(Model\User::class, 1)->create()->first();
 
-        /** @var Services\AccountManagement $accountManagement */
+        /**
+ * @var Services\AccountManagement $accountManagement 
+*/
         $accountManagement = $this->container->get(Services\AccountManagement::class);
 
         $accountManagement ->promoteTo(
@@ -106,10 +114,14 @@ final class PromoteActionTest extends WebTestCase implements TransactionalTestCa
      */
     public function promoteActionWorksCorrectly()
     {
-        /** @var Model\User $admin */
+        /**
+ * @var Model\User $admin 
+*/
         $admin = factory(Model\User::class, 1)->create()->first();
 
-        /** @var Model\User $speaker */
+        /**
+ * @var Model\User $speaker 
+*/
         $speaker = factory(Model\User::class, 1)->create()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -140,10 +152,14 @@ final class PromoteActionTest extends WebTestCase implements TransactionalTestCa
      */
     public function promoteActionFailsOnBadToken()
     {
-        /** @var Model\User $admin */
+        /**
+ * @var Model\User $admin 
+*/
         $admin = factory(Model\User::class, 1)->create()->first();
 
-        /** @var Model\User $speaker */
+        /**
+ * @var Model\User $speaker 
+*/
         $speaker = factory(Model\User::class, 1)->create()->first();
 
         $response = $this

@@ -27,17 +27,23 @@ final class TalksControllerTest extends WebTestCase implements TransactionalTest
      */
     public function talkIsCorrectlyCommentedOn()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
         $response = $this
             ->asAdmin($admin->id)
-            ->post('/admin/talks/' . $talk->id . '/comment', [
+            ->post(
+                '/admin/talks/' . $talk->id . '/comment', [
                 'comment' => 'Great Talk i rate 10/10',
-            ]);
+                ]
+            );
 
         $this->assertResponseBodyNotContains('Server Error', $response);
         $this->assertResponseIsRedirect($response);
@@ -48,10 +54,14 @@ final class TalksControllerTest extends WebTestCase implements TransactionalTest
      */
     public function selectActionWorksCorrectly()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
         $response = $this
@@ -67,17 +77,23 @@ final class TalksControllerTest extends WebTestCase implements TransactionalTest
      */
     public function selectActionDeletesCorrectly()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
         $response = $this
             ->asAdmin($admin->id)
-            ->post('/admin/talks/' . $talk->id . '/select', [
+            ->post(
+                '/admin/talks/' . $talk->id . '/select', [
                 'delete' => 1,
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodyContains('1', $response);
@@ -88,15 +104,19 @@ final class TalksControllerTest extends WebTestCase implements TransactionalTest
      */
     public function selectActionReturnsFalseWhenTalkNotFound()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
         $response = $this
             ->asAdmin($admin->id)
-            ->post(\sprintf(
-                '/admin/talks/%s/select',
-                $this->faker()->numberBetween(1)
-            ));
+            ->post(
+                \sprintf(
+                    '/admin/talks/%s/select',
+                    $this->faker()->numberBetween(1)
+                )
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodyNotContains('1', $response);
@@ -107,10 +127,14 @@ final class TalksControllerTest extends WebTestCase implements TransactionalTest
      */
     public function favoriteActionWorksCorrectly()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
         $response = $this
@@ -126,17 +150,23 @@ final class TalksControllerTest extends WebTestCase implements TransactionalTest
      */
     public function favoriteActionDeletesCorrectly()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
         $response = $this
             ->asAdmin($admin->id)
-            ->post('/admin/talks/' . $talk->id . '/favorite', [
+            ->post(
+                '/admin/talks/' . $talk->id . '/favorite', [
                 'delete' => 1,
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodyContains('1', $response);
@@ -147,7 +177,9 @@ final class TalksControllerTest extends WebTestCase implements TransactionalTest
      */
     public function favoriteActionDoesNotErrorWhenTryingToDeleteFavoriteThatDoesNoExist()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class, 1)->create()->first();
 
         $response = $this

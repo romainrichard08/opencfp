@@ -44,10 +44,12 @@ final class SentinelAccountManagementTest extends WebTestCase implements Transac
      */
     public function canCreateUserWithCredentials()
     {
-        $this->sut->create('test@example.com', 'secret', [
+        $this->sut->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
 
         $user = $this->sut->findByLogin('test@example.com');
         $this->assertSame('Test Account', "{$user->getUser()->first_name} {$user->getUser()->last_name}");
@@ -55,15 +57,19 @@ final class SentinelAccountManagementTest extends WebTestCase implements Transac
 
     public function testCreatingDuplicateUserThrowsError()
     {
-        $this->sut->create('test@example.com', 'secret', [
+        $this->sut->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
         $this->expectException(UserExistsException::class);
-        $this->sut->create('test@example.com', 'asdfasf', [
+        $this->sut->create(
+            'test@example.com', 'asdfasf', [
             'first_name' => 'Second',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
     }
 
     /**
@@ -71,10 +77,12 @@ final class SentinelAccountManagementTest extends WebTestCase implements Transac
      */
     public function findByIdWorks()
     {
-        $this->sut->create('test@example.com', 'secret', [
+        $this->sut->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
         $someUser = User::first();
 
         $sentinelUser = $this->sut->findById($someUser->id);
@@ -86,10 +94,12 @@ final class SentinelAccountManagementTest extends WebTestCase implements Transac
      */
     public function findByLoginWorks()
     {
-        $this->sut->create('test@example.com', 'secret', [
+        $this->sut->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
 
         $user = $this->sut->findByLogin('test@example.com');
         $this->assertSame('test@example.com', $user->getLogin());
@@ -100,10 +110,12 @@ final class SentinelAccountManagementTest extends WebTestCase implements Transac
      */
     public function findByRoleWorks()
     {
-        $this->sut->create('test@example.com', 'secret', [
+        $this->sut->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
         $this->sut->promoteTo('test@example.com', 'Admin');
         $users = $this->sut->findByRole('Admin');
         $this->assertCount(1, $users);
@@ -115,10 +127,12 @@ final class SentinelAccountManagementTest extends WebTestCase implements Transac
      */
     public function activateWorks()
     {
-        $this->sut->create('test@example.com', 'secret', [
+        $this->sut->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
         $user = $this->sut->findByLogin('test@example.com')->getUser();
         //Check there are no records of activation for the user;
         $this->assertFalse($this->sentinel->getActivationRepository()->exists($user));
@@ -134,10 +148,12 @@ final class SentinelAccountManagementTest extends WebTestCase implements Transac
      */
     public function promoteToWorks()
     {
-        $this->sut->create('test@example.com', 'secret', [
+        $this->sut->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
         $this->sut->promoteTo('test@example.com', 'Admin');
         $user = $this->sut->findByLogin('test@example.com');
         $this->assertTrue($user->hasAccess('Admin'));
@@ -148,10 +164,12 @@ final class SentinelAccountManagementTest extends WebTestCase implements Transac
      */
     public function demoteFromWorks()
     {
-        $this->sut->create('test@example.com', 'secret', [
+        $this->sut->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
         $this->sut->promoteTo('test@example.com', 'Admin');
         $user = $this->sut->findByLogin('test@example.com');
         $this->assertTrue($user->hasAccess('Admin'));

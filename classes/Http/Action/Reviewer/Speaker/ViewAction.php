@@ -55,11 +55,13 @@ final class ViewAction
         $speaker = Model\User::where('id', $request->get('id'))->first();
 
         if (!$speaker instanceof Model\User) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Could not find requested speaker',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('reviewer_speakers');
 
@@ -68,14 +70,16 @@ final class ViewAction
 
         $talks = $speaker->talks()->get()->toArray();
 
-        $content = $this->twig->render('reviewer/speaker/view.twig', [
+        $content = $this->twig->render(
+            'reviewer/speaker/view.twig', [
             'speaker' => new Speaker\SpeakerProfile(
                 $speaker,
                 $this->reviewerUsers
             ),
             'talks' => $talks,
             'page'  => $request->get('page'),
-        ]);
+            ]
+        );
 
         return new HttpFoundation\Response($content);
     }

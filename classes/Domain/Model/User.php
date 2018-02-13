@@ -45,13 +45,15 @@ class User extends Eloquent
     public function getOtherTalks($talkId = 0): Collection
     {
         $allTalks   = $this->talks;
-        $otherTalks = $allTalks->filter(function ($talk) use ($talkId) {
-            if ((int) $talk['id'] == (int) $talkId) {
-                return false;
-            }
+        $otherTalks = $allTalks->filter(
+            function ($talk) use ($talkId) {
+                if ((int) $talk['id'] == (int) $talkId) {
+                    return false;
+                }
 
-            return true;
-        });
+                return true;
+            }
+        );
 
         return $otherTalks;
     }
@@ -93,11 +95,13 @@ class User extends Eloquent
     {
         $this->talks()
             ->get()
-            ->each(function ($talk) {
-                if (!$talk->delete()) {
-                    throw new \Exception('Unable to delete talks of user');
+            ->each(
+                function ($talk) {
+                    if (!$talk->delete()) {
+                        throw new \Exception('Unable to delete talks of user');
+                    }
                 }
-            });
+            );
 
         if (!parent::delete()) {
             throw new \Exception('Unable to delete User');

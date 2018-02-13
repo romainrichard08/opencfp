@@ -38,11 +38,13 @@ final class ViewActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => 'Could not find requested talk',
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -82,7 +84,9 @@ final class ViewActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -127,9 +131,11 @@ final class ViewActionTest extends Framework\TestCase
         $twig
             ->render(
                 Argument::exact('admin/talks/view.twig'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'talk' => $talkProfile->reveal(),
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled()
             ->willReturn($content);

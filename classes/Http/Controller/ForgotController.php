@@ -63,11 +63,13 @@ class ForgotController extends BaseController
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Please enter a properly formatted email address',
-            ]);
+                ]
+            );
 
             return $this->redirectTo('forgot_password');
         }
@@ -87,11 +89,13 @@ class ForgotController extends BaseController
         $response = $this->resetEmailer->send($user->getId(), $data['email'], $user->getResetPasswordCode());
 
         if ($response == false) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'We were unable to send your password reset request. Please try again',
-            ]);
+                ]
+            );
 
             return $this->redirectTo('forgot_password');
         }
@@ -121,11 +125,13 @@ class ForgotController extends BaseController
         }
 
         if ($error > 0) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => $errorMessage,
-            ]);
+                ]
+            );
         }
 
         // Build password form and display it to the user
@@ -135,10 +141,12 @@ class ForgotController extends BaseController
         ];
         $form = $this->formFactory->create(new ResetFormType());
 
-        return $this->render('user/forgot_password.twig', [
+        return $this->render(
+            'user/forgot_password.twig', [
             'form'  => $form->createView($formOptions),
             'flash' => $request->getSession()->get('flash'),
-        ]);
+            ]
+        );
     }
 
     protected function successfulSendFlashParameters($email)

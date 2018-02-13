@@ -10,8 +10,9 @@ declare(strict_types=1);
  *
  * @see https://github.com/opencfp/opencfp
  */
-$factory->define(\OpenCFP\Domain\Model\User::class, function (\Faker\Generator $faker) {
-    return [
+$factory->define(
+    \OpenCFP\Domain\Model\User::class, function (\Faker\Generator $faker) {
+        return [
         'email'          => $faker->unique()->safeEmail,
         'password'       => \password_hash('secret', PASSWORD_BCRYPT),
         'activated'      => 1,
@@ -25,11 +26,13 @@ $factory->define(\OpenCFP\Domain\Model\User::class, function (\Faker\Generator $
         'hotel'          => $faker->randomElement([0, 1]),
         'info'           => $faker->realText(),
         'bio'            => $faker->realText(),
-    ];
-});
+        ];
+    }
+);
 
-$factory->define(\OpenCFP\Domain\Model\Talk::class, function (\Faker\Generator $faker) {
-    return [
+$factory->define(
+    \OpenCFP\Domain\Model\Talk::class, function (\Faker\Generator $faker) {
+        return [
         'user_id' => function () {
             return factory(\OpenCFP\Domain\Model\User::class)->create()->id;
         },
@@ -39,32 +42,39 @@ $factory->define(\OpenCFP\Domain\Model\Talk::class, function (\Faker\Generator $
         'type'        => $faker->randomElement(['regular', 'tutorial']),
         'level'       => $faker->randomElement(['entry', 'mid', 'advanced']),
         'category'    => $faker->randomElement(['api', 'database', 'development', 'testing']),
-    ];
-});
+        ];
+    }
+);
 
-$factory->define(\OpenCFP\Domain\Model\TalkMeta::class, function (\Faker\Generator $faker) {
-    return [
+$factory->define(
+    \OpenCFP\Domain\Model\TalkMeta::class, function (\Faker\Generator $faker) {
+        return [
         'admin_user_id' => factory(\OpenCFP\Domain\Model\User::class)->create()->id,
         'rating'        => 1,
         'viewed'        => 1,
         'talk_id'       => factory(\OpenCFP\Domain\Model\Talk::class)->create()->id,
         'created'       => new \DateTime(),
-    ];
-});
+        ];
+    }
+);
 
-$factory->define(\OpenCFP\Domain\Model\TalkComment::class, function (\Faker\Generator $faker) {
-    return [
+$factory->define(
+    \OpenCFP\Domain\Model\TalkComment::class, function (\Faker\Generator $faker) {
+        return [
         'user_id' => factory(\OpenCFP\Domain\Model\User::class)->create()->id,
         'talk_id' => factory(\OpenCFP\Domain\Model\Talk::class)->create()->id,
         'message' => $faker->realText(),
         'created' => new \DateTime(),
-    ];
-});
+        ];
+    }
+);
 
-$factory->define(\OpenCFP\Domain\Model\Favorite::class, function (\Faker\Generator $faker) {
-    return [
+$factory->define(
+    \OpenCFP\Domain\Model\Favorite::class, function (\Faker\Generator $faker) {
+        return [
         'admin_user_id' => factory(\OpenCFP\Domain\Model\User::class)->create()->id,
         'talk_id'       => factory(\OpenCFP\Domain\Model\Talk::class)->create()->id,
         'created'       => new \DateTime(),
-    ];
-});
+        ];
+    }
+);

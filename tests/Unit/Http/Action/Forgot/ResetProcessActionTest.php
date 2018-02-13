@@ -72,11 +72,13 @@ final class ResetProcessActionTest extends Framework\TestCase
             'string-zero'  => '0',
         ];
 
-        return \array_map(function ($value) {
-            return [
+        return \array_map(
+            function ($value) {
+                return [
                 $value,
-            ];
-        }, $values);
+                ];
+            }, $values
+        );
     }
 
     public function testRendersFormIfFormIsNotSubmitted()
@@ -145,9 +147,11 @@ final class ResetProcessActionTest extends Framework\TestCase
         $twig
             ->render(
                 Argument::exact('user/reset_password.twig'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'form' => $resetFormView->reveal(),
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled()
             ->willReturn($content);
@@ -237,9 +241,11 @@ final class ResetProcessActionTest extends Framework\TestCase
         $twig
             ->render(
                 Argument::exact('user/reset_password.twig'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'form' => $resetFormView->reveal(),
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled()
             ->willReturn($content);
@@ -272,11 +278,13 @@ final class ResetProcessActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => 'The reset you have requested appears to be invalid, please try again.',
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -334,7 +342,11 @@ final class ResetProcessActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -356,11 +368,13 @@ final class ResetProcessActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => 'The reset you have requested appears to be invalid, please try again.',
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -425,7 +439,11 @@ final class ResetProcessActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -498,7 +516,11 @@ final class ResetProcessActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

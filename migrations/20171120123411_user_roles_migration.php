@@ -16,7 +16,9 @@ use Phinx\Migration\AbstractMigration;
 
 class UserRolesMigration extends AbstractMigration
 {
-    /** @var Capsule $capsule */
+    /**
+     * @var Capsule $capsule 
+     */
     public $capsule;
 
     public function bootEloquent()
@@ -24,10 +26,12 @@ class UserRolesMigration extends AbstractMigration
         $adapter       = $this->getAdapter()->getAdapter();
         $options       = $adapter->getOptions();
         $this->capsule = new Capsule();
-        $this->capsule->addConnection([
+        $this->capsule->addConnection(
+            [
             'driver'   => 'mysql',
             'database' => $options['name'],
-        ]);
+            ]
+        );
         $this->capsule->getConnection()->setPdo($adapter->getConnection());
         $this->capsule->bootEloquent();
         $this->capsule->setAsGlobal();
@@ -62,9 +66,11 @@ class UserRolesMigration extends AbstractMigration
             $roleGroup = $con->query()->from('groups')->where('name', $role)->first();
             $roleIds   = $con->query()->from('users_groups')->where('group_id', $roleGroup->id)->get();
 
-            return $roleIds->transform(function ($role) {
-                return $role->user_id;
-            })->toArray();
+            return $roleIds->transform(
+                function ($role) {
+                    return $role->user_id;
+                }
+            )->toArray();
         } catch (\Exception $e) {
             return [];
         }

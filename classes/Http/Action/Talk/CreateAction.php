@@ -56,18 +56,21 @@ final class CreateAction
     public function __invoke(HttpFoundation\Request $request): HttpFoundation\Response
     {
         if (!$this->callForPapers->isOpen()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'You cannot create talks once the call for papers has ended',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('dashboard');
 
             return new HttpFoundation\RedirectResponse($url);
         }
 
-        $content = $this->twig->render('talk/create.twig', [
+        $content = $this->twig->render(
+            'talk/create.twig', [
             'formAction'     => $this->urlGenerator->generate('talk_create'),
             'talkCategories' => $this->talkHelper->getTalkCategories(),
             'talkTypes'      => $this->talkHelper->getTalkTypes(),
@@ -82,7 +85,8 @@ final class CreateAction
             'other'          => $request->get('other'),
             'sponsor'        => $request->get('sponsor'),
             'buttonInfo'     => 'Submit my talk!',
-        ]);
+            ]
+        );
 
         return new HttpFoundation\Response($content);
     }

@@ -47,17 +47,23 @@ class TwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('uploads', function ($path) {
-                return $this->path->uploadPath() . $path;
-            }),
-            new Twig_SimpleFunction('assets', function ($path) {
-                return  $this->path->assetsPath() . $path;
-            }),
+            new Twig_SimpleFunction(
+                'uploads', function ($path) {
+                    return $this->path->uploadPath() . $path;
+                }
+            ),
+            new Twig_SimpleFunction(
+                'assets', function ($path) {
+                    return  $this->path->assetsPath() . $path;
+                }
+            ),
 
-            new Twig_SimpleFunction('active', function ($route) {
-                return $this->urlGenerator->generate($route)
+            new Twig_SimpleFunction(
+                'active', function ($route) {
+                    return $this->urlGenerator->generate($route)
                     === $this->requestStack->getCurrentRequest()->getRequestUri();
-            }),
+                }
+            ),
         ];
     }
 }

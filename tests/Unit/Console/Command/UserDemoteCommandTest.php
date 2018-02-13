@@ -96,10 +96,12 @@ final class UserDemoteCommandTest extends Framework\TestCase
 
         $commandTester = new Console\Tester\CommandTester($command);
 
-        $commandTester->execute([
+        $commandTester->execute(
+            [
             'email'     => $email,
             'role-name' => $roleName,
-        ]);
+            ]
+        );
 
         $this->assertSame(1, $commandTester->getStatusCode());
 
@@ -141,10 +143,12 @@ final class UserDemoteCommandTest extends Framework\TestCase
 
         $commandTester = new Console\Tester\CommandTester($command);
 
-        $commandTester->execute([
+        $commandTester->execute(
+            [
             'email'     => $email,
             'role-name' => $roleName,
-        ]);
+            ]
+        );
 
         $this->assertSame(1, $commandTester->getStatusCode());
 
@@ -186,10 +190,12 @@ final class UserDemoteCommandTest extends Framework\TestCase
 
         $commandTester = new Console\Tester\CommandTester($command);
 
-        $commandTester->execute([
+        $commandTester->execute(
+            [
             'email'     => $email,
             'role-name' => $roleName,
-        ]);
+            ]
+        );
 
         $this->assertSame(1, $commandTester->getStatusCode());
 
@@ -230,10 +236,12 @@ final class UserDemoteCommandTest extends Framework\TestCase
 
         $commandTester = new Console\Tester\CommandTester($command);
 
-        $commandTester->execute([
+        $commandTester->execute(
+            [
             'email'     => $email,
             'role-name' => $roleName,
-        ]);
+            ]
+        );
 
         $this->assertSame(0, $commandTester->getStatusCode());
 

@@ -68,9 +68,11 @@ final class ResetProcessAction
             $this->resetForm->get('user_id')->setData($userId);
             $this->resetForm->get('reset_code')->setData($resetCode);
 
-            $content = $this->twig->render('user/reset_password.twig', [
+            $content = $this->twig->render(
+                'user/reset_password.twig', [
                 'form' => $this->resetForm->createView(),
-            ]);
+                ]
+            );
 
             return new HttpFoundation\Response($content);
         }
@@ -78,11 +80,13 @@ final class ResetProcessAction
         try {
             $user = $this->accountManagement->findById((int) $userId);
         } catch (\RuntimeException $e) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'The reset you have requested appears to be invalid, please try again.',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('forgot_password');
 
@@ -90,11 +94,13 @@ final class ResetProcessAction
         }
 
         if (!$user->checkResetPasswordCode($resetCode)) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'The reset you have requested appears to be invalid, please try again.',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('forgot_password');
 

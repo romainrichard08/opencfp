@@ -59,8 +59,10 @@ class CsrfValidationListener implements EventSubscriberInterface
             return;
         }
 
-        $event->setResponse(new RedirectResponse(
-            $this->urlGenerator->generate('dashboard')
-        ));
+        $event->setResponse(
+            new RedirectResponse(
+                $this->urlGenerator->generate('dashboard')
+            )
+        );
     }
 }

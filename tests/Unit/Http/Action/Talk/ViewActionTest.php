@@ -59,7 +59,11 @@ final class ViewActionTest extends AbstractActionTestCase
             $urlGenerator
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request);
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

@@ -24,7 +24,9 @@ final class CreateProcessActionTest extends WebTestCase implements Transactional
      */
     public function ampersandsAcceptableCharacterForTalks()
     {
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -33,7 +35,8 @@ final class CreateProcessActionTest extends WebTestCase implements Transactional
         $response = $this
             ->asLoggedInSpeaker($user->id)
             ->callForPapersIsOpen()
-            ->post('/talk/create', [
+            ->post(
+                '/talk/create', [
                 'title'       => 'Test Title With Ampersand',
                 'description' => 'The title should contain this & that',
                 'type'        => 'regular',
@@ -43,7 +46,8 @@ final class CreateProcessActionTest extends WebTestCase implements Transactional
                 'user_id'     => $user->id,
                 'token'       => $csrfToken,
                 'token_id'    => 'speaker_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
     }
@@ -53,7 +57,9 @@ final class CreateProcessActionTest extends WebTestCase implements Transactional
      */
     public function cantProcessCreateTalkAfterCFPIsClosed()
     {
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -63,10 +69,12 @@ final class CreateProcessActionTest extends WebTestCase implements Transactional
         $response = $this
             ->asLoggedInSpeaker($user->id)
             ->callForPapersIsClosed()
-            ->post('/talk/create', [
+            ->post(
+                '/talk/create', [
                 'token'    => $csrfToken,
                 'token_id' => 'speaker_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertResponseBodyNotContains('Create Your Talk', $response);
@@ -78,7 +86,9 @@ final class CreateProcessActionTest extends WebTestCase implements Transactional
      */
     public function cantProcessCreateTalkWithMissingData()
     {
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -88,11 +98,13 @@ final class CreateProcessActionTest extends WebTestCase implements Transactional
         $response = $this
             ->asLoggedInSpeaker($user->id)
             ->callForPapersIsOpen()
-            ->post('/talk/create', [
+            ->post(
+                '/talk/create', [
                 'description' => 'Talk Description',
                 'token'       => $csrfToken,
                 'token_id'    => 'speaker_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodyContains('Create Your Talk', $response);
@@ -107,11 +119,13 @@ final class CreateProcessActionTest extends WebTestCase implements Transactional
         $response = $this
             ->asLoggedInSpeaker()
             ->callForPapersIsOpen()
-            ->post('/talk/create', [
+            ->post(
+                '/talk/create', [
                 'description' => 'Talk Description',
                 'token'       => \uniqid(),
                 'token_id'    => 'speaker_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlContains('/dashboard', $response);

@@ -52,9 +52,11 @@ abstract class TalkRating implements TalkRatingStrategy
 
     private function fetchMetaInfo(int $talkId): Model
     {
-        return $this->meta->firstOrCreate([
+        return $this->meta->firstOrCreate(
+            [
             'admin_user_id' => $this->adminId,
             'talk_id'       => $talkId,
-        ]);
+            ]
+        );
     }
 }

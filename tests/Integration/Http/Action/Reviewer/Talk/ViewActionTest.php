@@ -39,7 +39,9 @@ final class ViewActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function viewActionWillShowTalk()
     {
-        /** @var Model\Talk $talk */
+        /**
+ * @var Model\Talk $talk 
+*/
         $talk = factory(Model\Talk::class)->create()->first();
 
         $response = $this

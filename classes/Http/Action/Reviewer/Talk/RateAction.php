@@ -36,9 +36,11 @@ final class RateAction
     public function __invoke(HttpFoundation\Request $request): HttpFoundation\Response
     {
         try {
-            $this->validate($request, [
+            $this->validate(
+                $request, [
                 'rating' => 'required|integer',
-            ]);
+                ]
+            );
         } catch (ValidationException $exception) {
             return new HttpFoundation\Response();
         }

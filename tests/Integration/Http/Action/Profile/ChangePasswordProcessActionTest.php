@@ -21,7 +21,9 @@ final class ChangePasswordProcessActionTest extends WebTestCase implements Trans
 {
     public function testRedirectsToPasswordEditIfDataIsMissing()
     {
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $response = $this
@@ -35,15 +37,19 @@ final class ChangePasswordProcessActionTest extends WebTestCase implements Trans
 
     public function testRedirectsToPasswordEditIfPasswordAndPasswordConfirmationAreEmptyStrings()
     {
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $response = $this
             ->asLoggedInSpeaker($user->id)
-            ->post('/profile/change_password', [
+            ->post(
+                '/profile/change_password', [
                 'password'         => '',
                 'password_confirm' => '',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlEquals('/profile/change_password', $response);
@@ -57,15 +63,19 @@ final class ChangePasswordProcessActionTest extends WebTestCase implements Trans
         $password             = $faker->unique()->password;
         $passwordConfirmation = $faker->unique()->password;
 
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $response = $this
             ->asLoggedInSpeaker($user->id)
-            ->post('/profile/change_password', [
+            ->post(
+                '/profile/change_password', [
                 'password'         => $password,
                 'password_confirm' => $passwordConfirmation,
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlEquals('/profile/change_password', $response);

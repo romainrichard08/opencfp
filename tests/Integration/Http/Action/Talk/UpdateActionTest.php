@@ -30,11 +30,13 @@ final class UpdateActionTest extends WebTestCase implements TransactionalTestCas
         $response = $this
             ->asLoggedInSpeaker()
             ->callForPapersIsClosed()
-            ->post('/talk/update', [
+            ->post(
+                '/talk/update', [
                 'id'       => 2,
                 'token'    => $csrfToken,
                 'token_id' => 'speaker_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertSessionHasFlashMessage('Read Only', $this->session());
@@ -52,11 +54,13 @@ final class UpdateActionTest extends WebTestCase implements TransactionalTestCas
         $response = $this
             ->asLoggedInSpeaker()
             ->callForPapersIsOpen()
-            ->post('/talk/update', [
+            ->post(
+                '/talk/update', [
                 'id'       => 2,
                 'token'    => $csrfToken,
                 'token_id' => 'speaker_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertSessionHasFlashMessage('Error', $this->session());
@@ -70,11 +74,13 @@ final class UpdateActionTest extends WebTestCase implements TransactionalTestCas
         $response = $this
             ->asLoggedInSpeaker()
             ->callForPapersIsOpen()
-            ->post('/talk/update', [
+            ->post(
+                '/talk/update', [
                 'id'       => 2,
                 'token'    => \uniqid(),
                 'token_id' => 'speaker_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlContains('/dashboard', $response);

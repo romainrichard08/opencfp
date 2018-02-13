@@ -33,11 +33,13 @@ final class CreateActionTest extends AbstractActionTestCase
             ->method('set')
             ->with(
                 $this->identicalTo('flash'),
-                $this->identicalTo([
+                $this->identicalTo(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => 'You cannot create talks once the call for papers has ended',
-                ])
+                    ]
+                )
             );
 
         $request = $this->createRequestMock();
@@ -81,7 +83,11 @@ final class CreateActionTest extends AbstractActionTestCase
             $urlGenerator
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request);
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -128,11 +134,13 @@ final class CreateActionTest extends AbstractActionTestCase
         $request
             ->expects($this->exactly(\count($fields)))
             ->method('get')
-            ->willReturnCallback(function (string $name) use ($fields) {
-                if (\array_key_exists($name, $fields)) {
-                    return $fields[$name];
+            ->willReturnCallback(
+                function (string $name) use ($fields) {
+                    if (\array_key_exists($name, $fields)) {
+                        return $fields[$name];
+                    }
                 }
-            });
+            );
 
         $talkHelper = $this->createTalkHelperMock();
 
@@ -165,7 +173,8 @@ final class CreateActionTest extends AbstractActionTestCase
             ->method('render')
             ->with(
                 $this->identicalTo('talk/create.twig'),
-                $this->identicalTo([
+                $this->identicalTo(
+                    [
                     'formAction'     => $formAction,
                     'talkCategories' => $categories,
                     'talkTypes'      => $types,
@@ -180,7 +189,8 @@ final class CreateActionTest extends AbstractActionTestCase
                     'other'          => $other,
                     'sponsor'        => $sponsor,
                     'buttonInfo'     => 'Submit my talk!',
-                ])
+                    ]
+                )
             )
             ->willReturn($content);
 

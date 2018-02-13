@@ -32,10 +32,12 @@ final class SentinelUserTest extends WebTestCase implements TransactionalTestCas
         parent::setUp();
 
         $account = new SentinelAccountManagement((new Sentinel())->getSentinel());
-        $account->create('test@example.com', 'secret', [
+        $account->create(
+            'test@example.com', 'secret', [
             'first_name' => 'Test',
             'last_name'  => 'Account',
-        ]);
+            ]
+        );
 
         $this->user = $account->findByLogin('test@example.com');
 
@@ -66,13 +68,17 @@ final class SentinelUserTest extends WebTestCase implements TransactionalTestCas
      */
     public function checkResetPasswordCodeWorks()
     {
-        /** @var Capsule $capsule */
+        /**
+ * @var Capsule $capsule 
+*/
         $capsule = $this->container->get(Capsule::class);
 
-        $capsule->getConnection()->query()->from('reminders')->insert([
+        $capsule->getConnection()->query()->from('reminders')->insert(
+            [
             'user_id' => $this->user->getId(),
             'code'    => 'secret.reset.code',
-        ]);
+            ]
+        );
 
         $this->assertFalse($this->user->checkResetPasswordCode('wrong.code'));
         $this->assertTrue($this->user->checkResetPasswordCode('secret.reset.code'));
@@ -83,13 +89,17 @@ final class SentinelUserTest extends WebTestCase implements TransactionalTestCas
      */
     public function getResetPassWordCodeWorks()
     {
-        /** @var Capsule $capsule */
+        /**
+ * @var Capsule $capsule 
+*/
         $capsule = $this->container->get(Capsule::class);
 
-        $capsule->getConnection()->query()->from('reminders')->insert([
+        $capsule->getConnection()->query()->from('reminders')->insert(
+            [
             'user_id' => $this->user->getId(),
             'code'    => 'secret.reset.code',
-        ]);
+            ]
+        );
 
         $this->assertTrue($this->user->checkResetPasswordCode('secret.reset.code'));
 
@@ -111,13 +121,17 @@ final class SentinelUserTest extends WebTestCase implements TransactionalTestCas
      */
     public function attemptResetPasswordWorks()
     {
-        /** @var Capsule $capsule */
+        /**
+ * @var Capsule $capsule 
+*/
         $capsule = $this->container->get(Capsule::class);
 
-        $capsule->getConnection()->query()->from('reminders')->insert([
+        $capsule->getConnection()->query()->from('reminders')->insert(
+            [
             'user_id' => $this->user->getId(),
             'code'    => 'secret.reset.code',
-        ]);
+            ]
+        );
 
         $result = $this->user->attemptResetPassword('wrong code', 'newPass1');
 

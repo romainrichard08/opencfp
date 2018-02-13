@@ -17,9 +17,11 @@ final class RoleNotFoundException extends \RuntimeException
 {
     public static function fromName(string $name): self
     {
-        return new self(\sprintf(
-            'Unable to find a role with name "%s".',
-            $name
-        ));
+        return new self(
+            \sprintf(
+                'Unable to find a role with name "%s".',
+                $name
+            )
+        );
     }
 }

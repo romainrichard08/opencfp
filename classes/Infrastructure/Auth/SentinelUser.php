@@ -54,12 +54,18 @@ final class SentinelUser implements UserInterface
     public function hasAccess($permissions): bool
     {
         try {
-            /** @var Collection | SentinelUserInterface[] $users */
+            /**
+* 
+             *
+ * @var Collection | SentinelUserInterface[] $users 
+*/
             $users = $this->sentinel->getRoleRepository()->findByName($permissions)->getUsers();
 
-            return $users->contains(function ($user) {
-                return $user->id == $this->user->id;
-            });
+            return $users->contains(
+                function ($user) {
+                    return $user->id == $this->user->id;
+                }
+            );
         } catch (\Throwable $e) {
             return false;
         }

@@ -63,7 +63,7 @@ final class MigrationsTest extends WebTestCase
     private function dropAndCreateDatabase()
     {
         $this->getCapsule()->getConnection()
-        ->unprepared('DROP DATABASE IF EXISTS`cfp_test`; CREATE DATABASE `cfp_test`; USE `cfp_test`;');
+            ->unprepared('DROP DATABASE IF EXISTS`cfp_test`; CREATE DATABASE `cfp_test`; USE `cfp_test`;');
     }
 
     private function getCapsule(): Capsule

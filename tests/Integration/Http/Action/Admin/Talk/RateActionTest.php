@@ -27,17 +27,27 @@ final class RateActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function rateActionWorksCorrectly($rating)
     {
-        /** @var Model\User $admin */
+        /**
+* 
+         *
+ * @var Model\User $admin 
+*/
         $admin = factory(Model\User::class)->create()->first();
 
-        /** @var Model\Talk $talk */
+        /**
+* 
+         *
+ * @var Model\Talk $talk 
+*/
         $talk = factory(Model\Talk::class, 1)->create()->first();
 
         $response = $this
             ->asAdmin($admin->id)
-            ->post('/admin/talks/' . $talk->id . '/rate', [
+            ->post(
+                '/admin/talks/' . $talk->id . '/rate', [
                 'rating' => $rating,
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodySame('1', $response);
@@ -63,17 +73,27 @@ final class RateActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function rateActionReturnsFalseOnWrongRate($rating)
     {
-        /** @var Model\User $admin */
+        /**
+* 
+         *
+ * @var Model\User $admin 
+*/
         $admin = factory(Model\User::class)->create()->first();
 
-        /** @var Model\Talk $talk */
+        /**
+* 
+         *
+ * @var Model\Talk $talk 
+*/
         $talk = factory(Model\Talk::class, 1)->create()->first();
 
         $response = $this
             ->asAdmin($admin->id)
-            ->post('/admin/talks/' . $talk->id . '/rate', [
+            ->post(
+                '/admin/talks/' . $talk->id . '/rate', [
                 'rating' => $rating,
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodyEmpty($response);

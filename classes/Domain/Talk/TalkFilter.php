@@ -69,29 +69,29 @@ class TalkFilter
         }
 
         switch (\strtolower($filter)) {
-            case 'selected':
-                return $this->talk->selected();
+        case 'selected':
+            return $this->talk->selected();
 
-            case 'notviewed':
-                return $this->talk->notViewedBy($adminUserId);
+        case 'notviewed':
+            return $this->talk->notViewedBy($adminUserId);
 
-            case 'notrated':
-                return $this->talk->notRatedBy($adminUserId);
+        case 'notrated':
+            return $this->talk->notRatedBy($adminUserId);
 
-            case 'toprated':
-                return $this->talk->topRated();
+        case 'toprated':
+            return $this->talk->topRated();
 
-            case 'plusone':
-                return $this->talk->ratedPlusOneBy($adminUserId);
+        case 'plusone':
+            return $this->talk->ratedPlusOneBy($adminUserId);
 
-            case 'viewed':
-                return $this->talk->viewedBy($adminUserId);
+        case 'viewed':
+            return $this->talk->viewedBy($adminUserId);
 
-            case 'favorited':
-                return $this->talk->favoritedBy($adminUserId);
+        case 'favorited':
+            return $this->talk->favoritedBy($adminUserId);
 
-            default:
-                return $this->talk;
+        default:
+            return $this->talk;
         }
     }
 

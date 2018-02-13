@@ -104,11 +104,13 @@ final class CreateProcessAction
     public function __invoke(HttpFoundation\Request $request): HttpFoundation\Response
     {
         if (!$this->callForPapers->isOpen()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'You cannot create talks once the call for papers has ended',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('dashboard');
 
@@ -117,7 +119,8 @@ final class CreateProcessAction
 
         $user = $this->authentication->user();
 
-        $form = $this->createTalkForm([
+        $form = $this->createTalkForm(
+            [
             'title'       => $request->get('title'),
             'description' => $request->get('description'),
             'type'        => $request->get('type'),
@@ -128,18 +131,22 @@ final class CreateProcessAction
             'other'       => $request->get('other'),
             'sponsor'     => $request->get('sponsor'),
             'user_id'     => $request->get('user_id'),
-        ]);
+            ]
+        );
 
         $form->sanitize();
 
         if (!$form->validateAll()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => \implode('<br>', $form->getErrorMessages()),
-            ]);
+                ]
+            );
 
-            $content = $this->twig->render('talk/create.twig', [
+            $content = $this->twig->render(
+                'talk/create.twig', [
                 'formAction'     => $this->urlGenerator->generate('talk_create'),
                 'talkCategories' => $this->talkHelper->getTalkCategories(),
                 'talkTypes'      => $this->talkHelper->getTalkTypes(),
@@ -155,20 +162,27 @@ final class CreateProcessAction
                 'sponsor'        => $request->get('sponsor'),
                 'buttonInfo'     => 'Submit my talk!',
                 'flash'          => $request->getSession()->get('flash'),
-            ]);
+                ]
+            );
 
             return new HttpFoundation\Response($content);
         }
 
-        $talk = Model\Talk::create(\array_merge($form->getCleanData(), [
-            'user_id' => $user->getId(),
-        ]));
+        $talk = Model\Talk::create(
+            \array_merge(
+                $form->getCleanData(), [
+                'user_id' => $user->getId(),
+                ]
+            )
+        );
 
-        $request->getSession()->set('flash', [
+        $request->getSession()->set(
+            'flash', [
             'type'  => 'success',
             'short' => 'Success',
             'ext'   => 'Successfully saved talk.',
-        ]);
+            ]
+        );
 
         $this->sendSubmitEmail(
             $user->getLogin(),

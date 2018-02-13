@@ -99,7 +99,9 @@ class ResetEmailer
     {
         $message = new \Swift_Message();
 
-        /** @var \Twig_Template $template */
+        /**
+ * @var \Twig_Template $template 
+*/
         $template = $this->twig->loadTemplate('emails/reset_password.twig');
 
         $message->setTo($email);

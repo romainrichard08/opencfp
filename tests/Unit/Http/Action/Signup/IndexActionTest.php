@@ -65,7 +65,11 @@ final class IndexActionTest extends AbstractActionTestCase
             $urlGenerator
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request);
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -84,11 +88,13 @@ final class IndexActionTest extends AbstractActionTestCase
             ->method('set')
             ->with(
                 $this->identicalTo('flash'),
-                $this->identicalTo([
+                $this->identicalTo(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => 'Sorry, the call for papers has ended.',
-                ])
+                    ]
+                )
             );
 
         $request = $this->createRequestMock();
@@ -133,7 +139,11 @@ final class IndexActionTest extends AbstractActionTestCase
             $urlGenerator
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request);
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

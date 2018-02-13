@@ -91,7 +91,11 @@ abstract class WebTestCase extends KernelTestCase
 
     private function databaseConnection(): Connection
     {
-        /** @var Capsule\Manager $capsule */
+        /**
+* 
+         *
+ * @var Capsule\Manager $capsule 
+*/
         $capsule = $this->container->get(Capsule\Manager::class);
 
         return $capsule->getConnection();
@@ -179,11 +183,19 @@ abstract class WebTestCase extends KernelTestCase
         $user->shouldReceive('hasPermission')->with('reviewer')->andReturn(false);
         $user->shouldReceive('getLogin')->andReturn('my@email.com');
 
-        /** @var MockAuthentication $authentication */
+        /**
+* 
+         *
+ * @var MockAuthentication $authentication 
+*/
         $authentication = $this->container->get(Authentication::class);
         $authentication->overrideUser($user);
 
-        /** @var MockIdentityProvider $identityProvider */
+        /**
+* 
+         *
+ * @var MockIdentityProvider $identityProvider 
+*/
         $identityProvider = $this->container->get(IdentityProvider::class);
         $identityProvider->overrideCurrentUser(new User(['id' => $id]));
 
@@ -200,11 +212,19 @@ abstract class WebTestCase extends KernelTestCase
         $user->shouldReceive('hasAccess')->with('reviewer')->andReturn(false);
         $user->shouldReceive('hasPermission')->with('reviewer')->andReturn(false);
 
-        /** @var MockAuthentication $authentication */
+        /**
+* 
+         *
+ * @var MockAuthentication $authentication 
+*/
         $authentication = $this->container->get(Authentication::class);
         $authentication->overrideUser($user);
 
-        /** @var MockIdentityProvider $identityProvider */
+        /**
+* 
+         *
+ * @var MockIdentityProvider $identityProvider 
+*/
         $identityProvider = $this->container->get(IdentityProvider::class);
         $identityProvider->overrideCurrentUser(new User(['id' => $id]));
 
@@ -221,11 +241,19 @@ abstract class WebTestCase extends KernelTestCase
         $user->shouldReceive('hasAccess')->with('reviewer')->andReturn(true);
         $user->shouldReceive('hasPermission')->with('reviewer')->andReturn(true);
 
-        /** @var MockAuthentication $authentication */
+        /**
+* 
+         *
+ * @var MockAuthentication $authentication 
+*/
         $authentication = $this->container->get(Authentication::class);
         $authentication->overrideUser($user);
 
-        /** @var MockIdentityProvider $identityProvider */
+        /**
+* 
+         *
+ * @var MockIdentityProvider $identityProvider 
+*/
         $identityProvider = $this->container->get(IdentityProvider::class);
         $identityProvider->overrideCurrentUser(new User(['id' => $id]));
 

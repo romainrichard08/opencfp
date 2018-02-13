@@ -61,10 +61,12 @@ final class LogInAction
 
             $request->getSession()->set('flash', $flash);
 
-            $content = $this->twig->render('security/login.twig', [
+            $content = $this->twig->render(
+                'security/login.twig', [
                 'email' => $request->get('email'),
                 'flash' => $flash,
-            ]);
+                ]
+            );
 
             return new HttpFoundation\Response(
                 $content,

@@ -75,11 +75,13 @@ class TalksController extends BaseController
             ->grabTalk($talkId)
             ->commentOn($request->get('comment'));
 
-        $request->getSession()->set('flash', [
+        $request->getSession()->set(
+            'flash', [
             'type'  => 'success',
             'short' => 'Success',
             'ext'   => 'Comment Added!',
-        ]);
+            ]
+        );
 
         return new RedirectResponse($this->url('admin_talk_view', ['id' => $talkId]));
     }

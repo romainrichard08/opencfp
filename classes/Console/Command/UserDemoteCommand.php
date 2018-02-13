@@ -39,10 +39,12 @@ final class UserDemoteCommand extends Command
     {
         $this
             ->setDescription('Demote an existing user from a role')
-            ->setDefinition([
+            ->setDefinition(
+                [
                 new InputArgument('email', InputArgument::REQUIRED, 'Email address of user'),
                 new InputArgument('role-name', InputArgument::REQUIRED, 'Name of role user should be demoted from'),
-            ])
+                ]
+            )
             ->setHelp(
                 <<<EOF
 The <info>%command.name%</info> command demotes a user from a role group for a given environment:
@@ -65,11 +67,13 @@ EOF
 
         $io->title('OpenCFP');
 
-        $io->section(\sprintf(
-            'Demoting account with email "%s" from "%s"',
-            $email,
-            $roleName
-        ));
+        $io->section(
+            \sprintf(
+                'Demoting account with email "%s" from "%s"',
+                $email,
+                $roleName
+            )
+        );
 
         try {
             $this->accountManagement->demoteFrom(
@@ -77,32 +81,40 @@ EOF
                 $roleName
             );
         } catch (Auth\UserNotFoundException $exception) {
-            $io->error(\sprintf(
-                'Could not find account with email "%s".',
-                $email
-            ));
+            $io->error(
+                \sprintf(
+                    'Could not find account with email "%s".',
+                    $email
+                )
+            );
 
             return 1;
         } catch (Auth\RoleNotFoundException $exception) {
-            $io->error(\sprintf(
-                'Could not find role with name "%s".',
-                $roleName
-            ));
+            $io->error(
+                \sprintf(
+                    'Could not find role with name "%s".',
+                    $roleName
+                )
+            );
 
             return 1;
         } catch (\Exception $exception) {
-            $io->error(\sprintf(
-                'Could not demote account with email "%s".',
-                $email
-            ));
+            $io->error(
+                \sprintf(
+                    'Could not demote account with email "%s".',
+                    $email
+                )
+            );
 
             return 1;
         }
 
-        $io->success(\sprintf(
-            'Removed account with email "%s" from the "%s" group.',
-            $email,
-            $roleName
-        ));
+        $io->success(
+            \sprintf(
+                'Removed account with email "%s" from the "%s" group.',
+                $email,
+                $roleName
+            )
+        );
     }
 }

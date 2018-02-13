@@ -67,18 +67,21 @@ class ProfileController extends BaseController
         $user = $this->authentication->user();
 
         if ((string) $user->getId() !== $request->get('id')) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => "You cannot edit someone else's profile",
-            ]);
+                ]
+            );
 
             return $this->redirectTo('dashboard');
         }
 
         $speakerData = User::find($user->getId())->toArray();
 
-        return $this->render('user/edit.twig', [
+        return $this->render(
+            'user/edit.twig', [
             'email'          => $user->getLogin(),
             'first_name'     => $speakerData['first_name'],
             'last_name'      => $speakerData['last_name'],
@@ -95,7 +98,8 @@ class ProfileController extends BaseController
             'id'             => $user->getId(),
             'formAction'     => $this->url('user_update'),
             'buttonInfo'     => 'Update Profile',
-        ]);
+            ]
+        );
     }
 
     public function processAction(Request $request): Response
@@ -103,11 +107,13 @@ class ProfileController extends BaseController
         $userId = $this->authentication->user()->getId();
 
         if ((string) $userId !== $request->get('id')) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => "You cannot edit someone else's profile",
-            ]);
+                ]
+            );
 
             return $this->redirectTo('dashboard');
         }
@@ -132,18 +138,24 @@ class ProfileController extends BaseController
 
             return $this->redirectTo('dashboard');
         }
-        $request->getSession()->set('flash', [
+        $request->getSession()->set(
+            'flash', [
             'type'  => 'error',
             'short' => 'Error',
             'ext'   => \implode('<br>', $form->getErrorMessages()),
-        ]);
+            ]
+        );
 
-        return $this->render('user/edit.twig', \array_merge($formData, [
-            'formAction' => $this->url('user_update'),
-            'buttonInfo' => 'Update Profile',
-            'id'         => $userId,
-            'flash'      => $request->getSession()->get('flash'),
-        ]));
+        return $this->render(
+            'user/edit.twig', \array_merge(
+                $formData, [
+                'formAction' => $this->url('user_update'),
+                'buttonInfo' => 'Update Profile',
+                'id'         => $userId,
+                'flash'      => $request->getSession()->get('flash'),
+                ]
+            )
+        );
     }
 
     /**

@@ -104,15 +104,19 @@ final class UpdateAction
     public function __invoke(HttpFoundation\Request $request): HttpFoundation\Response
     {
         if (!$this->callForPapers->isOpen()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Read Only',
                 'ext'   => 'You cannot edit talks once the call for papers has ended',
-            ]);
+                ]
+            );
 
-            $url = $this->urlGenerator->generate('talk_view', [
+            $url = $this->urlGenerator->generate(
+                'talk_view', [
                 'id' => $request->get('id'),
-            ]);
+                ]
+            );
 
             return new HttpFoundation\RedirectResponse($url);
         }
@@ -137,19 +141,27 @@ final class UpdateAction
         $form->sanitize();
 
         if ($form->validateAll()) {
-            $sanitizedData = \array_merge($form->getCleanData(), [
+            $sanitizedData = \array_merge(
+                $form->getCleanData(), [
                 'user_id' => $user->getId(),
-            ]);
+                ]
+            );
 
-            /** @var Model\Talk $talk */
+            /**
+* 
+             *
+ * @var Model\Talk $talk 
+*/
             $talk = Model\Talk::find((int) $sanitizedData['id']);
 
             if ($talk->update($sanitizedData)) {
-                $request->getSession()->set('flash', [
+                $request->getSession()->set(
+                    'flash', [
                     'type'  => 'success',
                     'short' => 'Success',
                     'ext'   => 'Successfully saved talk.',
-                ]);
+                    ]
+                );
 
                 $this->sendSubmitEmail(
                     $talk,
@@ -162,13 +174,16 @@ final class UpdateAction
             }
         }
 
-        $request->getSession()->set('flash', [
+        $request->getSession()->set(
+            'flash', [
             'type'  => 'error',
             'short' => 'Error',
             'ext'   => \implode('<br>', $form->getErrorMessages()),
-        ]);
+            ]
+        );
 
-        $content = $this->twig->render('talk/edit.twig', [
+        $content = $this->twig->render(
+            'talk/edit.twig', [
             'formAction'     => $this->urlGenerator->generate('talk_update'),
             'talkCategories' => $this->talkHelper->getTalkCategories(),
             'talkTypes'      => $this->talkHelper->getTalkTypes(),
@@ -185,23 +200,30 @@ final class UpdateAction
             'sponsor'        => $request->get('sponsor'),
             'buttonInfo'     => 'Update my talk!',
             'flash'          => $request->getSession()->get('flash'),
-        ]);
+            ]
+        );
 
         return new HttpFoundation\Response($content);
     }
 
     private function createTalkForm(array $requestData): Form\TalkForm
     {
-        return new Form\TalkForm($requestData, $this->purifier, [
+        return new Form\TalkForm(
+            $requestData, $this->purifier, [
             'categories' => $this->talkHelper->getTalkCategories(),
             'levels'     => $this->talkHelper->getTalkLevels(),
             'types'      => $this->talkHelper->getTalkTypes(),
-        ]);
+            ]
+        );
     }
 
     private function sendSubmitEmail(Model\Talk $talk, string $email): int
     {
-        /** @var \Twig_Template $template */
+        /**
+* 
+         *
+ * @var \Twig_Template $template 
+*/
         $template = $this->twig->loadTemplate('emails/talk_submit.twig');
 
         $parameters = [

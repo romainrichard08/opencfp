@@ -67,11 +67,13 @@ final class ChangePasswordProcessAction
         $form->sanitize();
 
         if (!$form->validatePasswords()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => \implode('<br>', $form->getErrorMessages()),
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('password_edit');
 
@@ -82,22 +84,26 @@ final class ChangePasswordProcessAction
         $sanitizedData = $form->getCleanData();
 
         if (!$user->attemptResetPassword($resetCode, $sanitizedData['password'])) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Unable to update your password in the database. Please try again.',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('password_edit');
 
             return new HttpFoundation\RedirectResponse($url);
         }
 
-        $request->getSession()->set('flash', [
+        $request->getSession()->set(
+            'flash', [
             'type'  => 'success',
             'short' => 'Success',
             'ext'   => 'Changed your password.',
-        ]);
+            ]
+        );
 
         $url = $this->urlGenerator->generate('password_edit');
 

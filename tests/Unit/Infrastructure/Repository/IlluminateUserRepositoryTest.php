@@ -34,9 +34,11 @@ final class IlluminateUserRepositoryTest extends Framework\TestCase
     {
         $id = $this->faker()->numberBetween(1);
 
-        $userModel = $this->createUserMock([
+        $userModel = $this->createUserMock(
+            [
             'findOrFail',
-        ]);
+            ]
+        );
 
         $userModel
             ->expects($this->once())
@@ -57,9 +59,11 @@ final class IlluminateUserRepositoryTest extends Framework\TestCase
 
         $user = $this->createUserMock();
 
-        $userModel = $this->createUserMock([
+        $userModel = $this->createUserMock(
+            [
             'findOrFail',
-        ]);
+            ]
+        );
 
         $userModel
             ->expects($this->once())
@@ -74,9 +78,11 @@ final class IlluminateUserRepositoryTest extends Framework\TestCase
 
     public function testPersistSavesUser()
     {
-        $user = $this->createUserMock([
+        $user = $this->createUserMock(
+            [
             'save',
-        ]);
+            ]
+        );
 
         $user
             ->expects($this->once())

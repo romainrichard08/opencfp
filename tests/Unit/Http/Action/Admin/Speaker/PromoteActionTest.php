@@ -40,14 +40,16 @@ final class PromoteActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => \sprintf(
                         'User with id "%s" could not be found.',
                         $id
                     ),
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -87,7 +89,9 @@ final class PromoteActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -109,14 +113,16 @@ final class PromoteActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => \sprintf(
                         'User already is in the "%s" group.',
                         $role
                     ),
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -163,7 +169,9 @@ final class PromoteActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -186,14 +194,16 @@ final class PromoteActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => \sprintf(
                         'Role "%s" could not be found.',
                         $role
                     ),
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -253,7 +263,9 @@ final class PromoteActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -276,11 +288,13 @@ final class PromoteActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'success',
                     'short' => 'Success',
                     'ext'   => '',
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -339,7 +353,9 @@ final class PromoteActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

@@ -97,31 +97,34 @@ class SpeakersController extends BaseController
 
         $rawSpeakers = User::search($search)->get();
 
-        $rawSpeakers = $rawSpeakers->map(function ($speaker) use ($adminUserIds, $reviewerUserIds) {
-            try {
-                $airport = $this->airports->withCode($speaker['airport']);
+        $rawSpeakers = $rawSpeakers->map(
+            function ($speaker) use ($adminUserIds, $reviewerUserIds) {
+                try {
+                    $airport = $this->airports->withCode($speaker['airport']);
 
-                $speaker['airport'] = [
+                    $speaker['airport'] = [
                     'code'    => $airport->code,
                     'name'    => $airport->name,
                     'country' => $airport->country,
-                ];
-            } catch (EntityNotFoundException $e) {
-                //Do nothing
+                    ];
+                } catch (EntityNotFoundException $e) {
+                    //Do nothing
+                }
+
+                $speaker['is_admin'] = \in_array($speaker['id'], $adminUserIds);
+                $speaker['is_reviewer'] = \in_array($speaker['id'], $reviewerUserIds);
+
+                return $speaker;
             }
-
-            $speaker['is_admin'] = \in_array($speaker['id'], $adminUserIds);
-            $speaker['is_reviewer'] = \in_array($speaker['id'], $reviewerUserIds);
-
-            return $speaker;
-        })->toArray();
+        )->toArray();
 
         // Set up our page stuff
         $pagerfanta = new Pagination($rawSpeakers);
         $pagerfanta->setCurrentPage($request->get('page'));
         $pagination = $pagerfanta->createView('/admin/speakers?');
 
-        return $this->render('admin/speaker/index.twig', [
+        return $this->render(
+            'admin/speaker/index.twig', [
             'airport'    => $this->applicationAirport,
             'arrival'    => \date('Y-m-d', $this->applicationArrival),
             'departure'  => \date('Y-m-d', $this->applicationDeparture),
@@ -129,7 +132,8 @@ class SpeakersController extends BaseController
             'speakers'   => $pagerfanta->getFanta(),
             'page'       => $pagerfanta->getCurrentPage(),
             'search'     => $search ?: '',
-        ]);
+            ]
+        );
     }
 
     public function viewAction(Request $request): Response
@@ -137,11 +141,13 @@ class SpeakersController extends BaseController
         $speakerDetails = User::find($request->get('id'));
 
         if (!$speakerDetails instanceof User) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Could not find requested speaker',
-            ]);
+                ]
+            );
 
             return $this->redirectTo('admin_speakers');
         }
@@ -161,14 +167,16 @@ class SpeakersController extends BaseController
         $talks = $speakerDetails->talks()->get();
 
         // Build and render the template
-        return $this->render('admin/speaker/view.twig', [
+        return $this->render(
+            'admin/speaker/view.twig', [
             'airport'   => $this->applicationAirport,
             'arrival'   => \date('Y-m-d', $this->applicationArrival),
             'departure' => \date('Y-m-d', $this->applicationDeparture),
             'speaker'   => new SpeakerProfile($speakerDetails),
             'talks'     => $talks,
             'page'      => $request->get('page'),
-        ]);
+            ]
+        );
     }
 
     public function deleteAction(Request $request): Response
@@ -190,11 +198,13 @@ class SpeakersController extends BaseController
         }
 
         // Set flash message
-        $request->getSession()->set('flash', [
+        $request->getSession()->set(
+            'flash', [
             'type'  => $type,
             'short' => $short,
             'ext'   => $ext,
-        ]);
+            ]
+        );
 
         return $this->redirectTo('admin_speakers');
     }
@@ -205,11 +215,13 @@ class SpeakersController extends BaseController
         $id   = (int) $request->get('id');
 
         if ($this->authentication->user()->getId() == $id) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Sorry, you cannot remove yourself as ' . $role . '.',
-            ]);
+                ]
+            );
 
             return $this->redirectTo('admin_speakers');
         }
@@ -218,17 +230,21 @@ class SpeakersController extends BaseController
             $user = $this->accounts->findById($id);
             $this->accounts->demoteFrom($user->getLogin(), $role);
 
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'success',
                 'short' => 'Success',
                 'ext'   => '',
-            ]);
+                ]
+            );
         } catch (\Exception $e) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'We were unable to remove the ' . $role . '. Please try again.',
-            ]);
+                ]
+            );
         }
 
         return $this->redirectTo('admin_speakers');

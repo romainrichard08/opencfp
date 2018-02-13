@@ -27,7 +27,8 @@ final class ProcessActionTest extends WebTestCase implements TransactionalTestCa
 
         $password = $faker->password;
 
-        $response = $this->post('/signup', [
+        $response = $this->post(
+            '/signup', [
             'first_name'     => $faker->firstName,
             'last_name'      => $faker->lastName,
             'email'          => $faker->email,
@@ -43,7 +44,8 @@ final class ProcessActionTest extends WebTestCase implements TransactionalTestCa
             'hotel'          => null,
             'buttonInfo'     => 'Create my speaker profile',
             'coc'            => 1,
-        ]);
+            ]
+        );
 
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlContains('dashboard', $response);
@@ -59,7 +61,8 @@ final class ProcessActionTest extends WebTestCase implements TransactionalTestCa
 
         $password = $faker->password;
 
-        $response = $this->post('/signup', [
+        $response = $this->post(
+            '/signup', [
             'first_name'     => $faker->firstName,
             'last_name'      => $faker->lastName,
             'email'          => $faker->email,
@@ -75,7 +78,8 @@ final class ProcessActionTest extends WebTestCase implements TransactionalTestCa
             'hotel'          => null,
             'buttonInfo'     => 'Create my speaker profile',
             'coc'            => 1,
-        ]);
+            ]
+        );
 
         $this->assertSessionHasFlashMessage("You've successfully created your account!", $this->session());
         $this->assertResponseIsRedirect($response);

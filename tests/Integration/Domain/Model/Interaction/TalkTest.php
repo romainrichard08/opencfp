@@ -27,7 +27,9 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
      */
     public function deleteWorksWithMeta()
     {
-        /** @var TalkMeta $meta */
+        /**
+ * @var TalkMeta $meta 
+*/
         $meta = factory(TalkMeta::class, 1)->create()->first();
         $talk = $meta->talk()->first();
 
@@ -40,7 +42,9 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
      */
     public function deleteMetaButKeepTalkIsPossible()
     {
-        /** @var TalkMeta $meta */
+        /**
+ * @var TalkMeta $meta 
+*/
         $meta = factory(TalkMeta::class, 1)->create()->first();
         $talk = $meta->talk()->first();
 
@@ -54,7 +58,9 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
      */
     public function deleteWorksWithComments()
     {
-        /** @var TalkComment $meta */
+        /**
+ * @var TalkComment $meta 
+*/
         $comment = factory(TalkComment::class, 1)->create()->first();
         $talk    = $comment->talk()->first();
 
@@ -67,7 +73,9 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
      */
     public function deleteCommentsButKeepTalkIsPossible()
     {
-        /** @var TalkComment $comment */
+        /**
+ * @var TalkComment $comment 
+*/
         $comment = factory(TalkComment::class, 1)->create()->first();
         $talk    = $comment->talk()->first();
 
@@ -81,7 +89,9 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
      */
     public function deleteWorksWithFavorites()
     {
-        /** @var Favorite $favorite */
+        /**
+ * @var Favorite $favorite 
+*/
         $favorite = factory(Favorite::class, 1)->create()->first();
         $talk     = $favorite->talk()->first();
 
@@ -94,7 +104,9 @@ final class TalkTest extends WebTestCase implements TransactionalTestCase
      */
     public function deleteFavoritesButKeepTalkIsPossible()
     {
-        /** @var Favorite $favorite */
+        /**
+ * @var Favorite $favorite 
+*/
         $favorite = factory(Favorite::class, 1)->create()->first();
         $talk     = $favorite->talk()->first();
 

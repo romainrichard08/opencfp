@@ -38,11 +38,13 @@ final class TwigExtensionTest extends TestCase
         $urlGenerator = new UrlGenerator($routes, new RequestContext());
 
         $twig = new \Twig_Environment(new \Twig_Loader_Filesystem(__DIR__ . '/Fixtures'));
-        $twig->addExtension(new TwigExtension(
-            $requestStack,
-            $urlGenerator,
-            $path
-        ));
+        $twig->addExtension(
+            new TwigExtension(
+                $requestStack,
+                $urlGenerator,
+                $path
+            )
+        );
 
         $this->assertStringEqualsFile(__DIR__ . '/Fixtures/functions.txt', $twig->render('functions.txt.twig'));
     }

@@ -57,9 +57,11 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $twig
             ->render(
                 Argument::exact('user/reset_password.twig'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'form' => $resetFormView->reveal(),
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled()
             ->willReturn($content);
@@ -112,9 +114,11 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $twig
             ->render(
                 Argument::exact('user/reset_password.twig'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'form' => $resetFormView->reveal(),
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled()
             ->willReturn($content);
@@ -166,11 +170,13 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $resetForm
             ->getData()
             ->shouldBeCalled()
-            ->willReturn([
+            ->willReturn(
+                [
                 'user_id'    => $userId,
                 'reset_code' => $resetCode,
                 'password'   => $password,
-            ]);
+                ]
+            );
 
         $action = new UpdatePasswordAction(
             $resetForm->reveal(),
@@ -195,11 +201,13 @@ final class UpdatePasswordActionTest extends Framework\TestCase
             'string-zero'  => '0',
         ];
 
-        return \array_map(function ($value) {
-            return [
+        return \array_map(
+            function ($value) {
+                return [
                 $value,
-            ];
-        }, $values);
+                ];
+            }, $values
+        );
     }
 
     public function testRedirectsToLoginIfNewPasswordMatchesOldPassword()
@@ -217,11 +225,13 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => 'Please select a different password than your current one.',
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -251,11 +261,13 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $resetForm
             ->getData()
             ->shouldBeCalled()
-            ->willReturn([
+            ->willReturn(
+                [
                 'user_id'    => $userId,
                 'reset_code' => $resetCode,
                 'password'   => $password,
-            ]);
+                ]
+            );
 
         $user = $this->prophesize(Auth\UserInterface::class);
 
@@ -285,7 +297,11 @@ final class UpdatePasswordActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -308,11 +324,13 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'error',
                     'short' => 'Error',
                     'ext'   => 'Password reset failed, please contact the administrator.',
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -341,11 +359,13 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $resetForm
             ->getData()
             ->shouldBeCalled()
-            ->willReturn([
+            ->willReturn(
+                [
                 'user_id'    => $userId,
                 'reset_code' => $resetCode,
                 'password'   => $password,
-            ]);
+                ]
+            );
 
         $user = $this->prophesize(Auth\UserInterface::class);
 
@@ -383,7 +403,11 @@ final class UpdatePasswordActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);
@@ -406,11 +430,13 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $session
             ->set(
                 Argument::exact('flash'),
-                Argument::exact([
+                Argument::exact(
+                    [
                     'type'  => 'success',
                     'short' => 'Success',
                     'ext'   => "You've successfully reset your password.",
-                ])
+                    ]
+                )
             )
             ->shouldBeCalled();
 
@@ -440,11 +466,13 @@ final class UpdatePasswordActionTest extends Framework\TestCase
         $resetForm
             ->getData()
             ->shouldBeCalled()
-            ->willReturn([
+            ->willReturn(
+                [
                 'user_id'    => $userId,
                 'reset_code' => $resetCode,
                 'password'   => $password,
-            ]);
+                ]
+            );
 
         $user = $this->prophesize(Auth\UserInterface::class);
 
@@ -482,7 +510,11 @@ final class UpdatePasswordActionTest extends Framework\TestCase
             $urlGenerator->reveal()
         );
 
-        /** @var HttpFoundation\RedirectResponse $response */
+        /**
+* 
+         *
+ * @var HttpFoundation\RedirectResponse $response 
+*/
         $response = $action($request->reveal());
 
         $this->assertInstanceOf(HttpFoundation\RedirectResponse::class, $response);

@@ -22,7 +22,9 @@ final class LogOutActionTest extends WebTestCase implements TransactionalTestCas
 {
     public function testLogsOutUserAndRedirectsToHomepage()
     {
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $response = $this
@@ -32,7 +34,9 @@ final class LogOutActionTest extends WebTestCase implements TransactionalTestCas
         $this->assertResponseIsRedirect($response);
         $this->assertRedirectResponseUrlEquals('/', $response);
 
-        /** @var Services\Authentication $authentication */
+        /**
+ * @var Services\Authentication $authentication 
+*/
         $authentication = $this->container->get(Services\Authentication::class);
 
         $this->assertFalse($authentication->isAuthenticated());

@@ -62,11 +62,13 @@ final class IndexAction
         }
 
         if (!$this->callForPapers->isOpen()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Error',
                 'ext'   => 'Sorry, the call for papers has ended.',
-            ]);
+                ]
+            );
 
             $url = $this->urlGenerator->generate('homepage');
 

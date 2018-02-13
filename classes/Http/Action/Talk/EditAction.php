@@ -63,15 +63,19 @@ final class EditAction
         $talkId = (int) $request->get('id');
 
         if (!$this->callForPapers->isOpen()) {
-            $request->getSession()->set('flash', [
+            $request->getSession()->set(
+                'flash', [
                 'type'  => 'error',
                 'short' => 'Read Only',
                 'ext'   => 'You cannot edit talks once the call for papers has ended',
-            ]);
+                ]
+            );
 
-            $url = $this->urlGenerator->generate('talk_view', [
+            $url = $this->urlGenerator->generate(
+                'talk_view', [
                 'id' => $talkId,
-            ]);
+                ]
+            );
 
             return new HttpFoundation\RedirectResponse($url);
         }

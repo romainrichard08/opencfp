@@ -26,10 +26,14 @@ final class ExportsControllerTest extends WebTestCase implements TransactionalTe
      */
     public function anonymousTalksExportsContainsNoUserNames()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class)->create()->first();
 
-        /** @var Eloquent\Collection|Talk[] $talks */
+        /**
+ * @var Eloquent\Collection|Talk[] $talks 
+*/
         $talks = factory(Talk::class, 3)->create();
 
         $response = $this
@@ -50,10 +54,14 @@ final class ExportsControllerTest extends WebTestCase implements TransactionalTe
      */
     public function attributedTalksWorks()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class)->create()->first();
 
-        /** @var Eloquent\Collection|Talk[] $talks */
+        /**
+ * @var Eloquent\Collection|Talk[] $talks 
+*/
         $talks = factory(Talk::class, 2)->create();
 
         $response = $this
@@ -73,10 +81,14 @@ final class ExportsControllerTest extends WebTestCase implements TransactionalTe
      */
     public function emailExportWorks()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class)->create()->first();
 
-        /** @var Eloquent\Collection|Talk[] $talks */
+        /**
+ * @var Eloquent\Collection|Talk[] $talks 
+*/
         $talks = factory(Talk::class, 2)->create();
 
         $response = $this
@@ -96,13 +108,19 @@ final class ExportsControllerTest extends WebTestCase implements TransactionalTe
      */
     public function selectedExportWorks()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class)->create()->first();
 
-        /** @var Eloquent\Collection|Talk[] $talks */
+        /**
+ * @var Eloquent\Collection|Talk[] $talks 
+*/
         $talks = factory(Talk::class, 2)->create(['selected' => 0]);
 
-        /** @var Eloquent\Collection|Talk[] $selectedTalks */
+        /**
+ * @var Eloquent\Collection|Talk[] $selectedTalks 
+*/
         $selectedTalks = factory(Talk::class, 2)->create(['selected' => 1]);
 
         $response = $this
@@ -128,7 +146,9 @@ final class ExportsControllerTest extends WebTestCase implements TransactionalTe
      */
     public function talksGetProperlyFormatted()
     {
-        /** @var User $admin */
+        /**
+ * @var User $admin 
+*/
         $admin = factory(User::class)->create()->first();
 
         factory(Talk::class, 1)->create(['selected' => 1, 'slides' => '=2+3'])->first();

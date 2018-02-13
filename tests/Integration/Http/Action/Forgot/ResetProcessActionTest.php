@@ -24,16 +24,20 @@ final class ResetProcessActionTest extends WebTestCase implements TransactionalT
     {
         $resetCode = $this->faker()->sha256;
 
-        /** @var Model\User $user */
+        /**
+ * @var Model\User $user 
+*/
         $user = factory(Model\User::class)->create()->first();
 
         $client = $this->createClient();
 
-        $client->request(HttpFoundation\Request::METHOD_GET, \sprintf(
-            '/reset/%s/%s',
-            $user->id,
-            $resetCode
-        ));
+        $client->request(
+            HttpFoundation\Request::METHOD_GET, \sprintf(
+                '/reset/%s/%s',
+                $user->id,
+                $resetCode
+            )
+        );
 
         $response = $client->getResponse();
 

@@ -25,7 +25,9 @@ final class DashboardActionTest extends WebTestCase implements TransactionalTest
      */
     public function indexDisplaysListOfTalks()
     {
-        /** @var Eloquent\Collection|Model\Talk[] $talks */
+        /**
+ * @var Eloquent\Collection|Model\Talk[] $talks 
+*/
         $talks = factory(Model\Talk::class, 2)->create();
 
         $response = $this

@@ -65,16 +65,22 @@ class FixZeroDates extends AbstractMigration
 
     private function run($sql)
     {
-        \array_walk($this->tables, function ($columnNames, $tableName) use ($sql) {
-            \array_walk($columnNames, function ($columnName) use ($tableName, $sql) {
-                $this->execute(\sprintf(
-                    $sql,
-                    $tableName,
-                    $columnName,
-                    $columnName,
-                    $columnName
-                ));
-            });
-        });
+        \array_walk(
+            $this->tables, function ($columnNames, $tableName) use ($sql) {
+                \array_walk(
+                    $columnNames, function ($columnName) use ($tableName, $sql) {
+                        $this->execute(
+                            \sprintf(
+                                $sql,
+                                $tableName,
+                                $columnName,
+                                $columnName,
+                                $columnName
+                            )
+                        );
+                    }
+                );
+            }
+        );
     }
 }

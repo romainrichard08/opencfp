@@ -25,10 +25,14 @@ final class EditActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function canNotEditTalkAfterCfpIsClosed()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = $talk->speaker()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')->getToken('edit_talk');
@@ -49,7 +53,9 @@ final class EditActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function getRedirectedToDashboardOnEditWhenNoTalkID()
     {
-        /** @var User $speaker*/
+        /**
+ * @var User $speaker
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         $response = $this
@@ -65,10 +71,14 @@ final class EditActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function getRedirectedToDashboardWhenTalkIsNotYours()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
-        /** @var User $otherSpeaker */
+        /**
+ * @var User $otherSpeaker 
+*/
         $otherSpeaker = factory(User::class, 1)->create()->first();
 
         $response = $this
@@ -84,10 +94,14 @@ final class EditActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function seeEditPageWhenAllowed()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = $talk->speaker->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -108,10 +122,14 @@ final class EditActionTest extends WebTestCase implements TransactionalTestCase
      */
     public function cannotEditTalkWithBadToken()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = $talk->speaker->first();
 
         $response = $this

@@ -26,7 +26,8 @@ class Airports extends AbstractMigration
             ->create();
 
         $airports = $this->table('airports');
-        $airports->insert([
+        $airports->insert(
+            [
             ['code' => 'AAC', 'name' => 'Al Arish', 'country' => 'Egypt'],
             ['code' => 'AAE', 'name' => 'Annaba', 'country' => 'Algeria'],
             ['code' => 'AAL', 'name' => 'Alborg', 'country' => 'Denmark'],
@@ -1968,7 +1969,8 @@ class Airports extends AbstractMigration
             ['code' => 'ZTH', 'name' => 'Zakynthos', 'country' => 'Greece'],
             ['code' => 'ZTM', 'name' => 'Shamattawa MB', 'country' => 'Canada'],
             ['code' => 'ZYL', 'name' => 'Sylhet', 'country' => 'Bangladesh'],
-        ])->save();
+            ]
+        )->save();
     }
 
     public function down()

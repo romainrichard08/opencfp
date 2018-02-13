@@ -25,10 +25,14 @@ final class DeleteActionTest extends WebTestCase implements TransactionalTestCas
      */
     public function notAllowedToDeleteAfterCFPIsOver()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = $talk->speaker()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -38,11 +42,13 @@ final class DeleteActionTest extends WebTestCase implements TransactionalTestCas
         $response = $this
             ->asLoggedInSpeaker($speaker->id)
             ->callForPapersIsClosed()
-            ->post('/talk/delete', [
+            ->post(
+                '/talk/delete', [
                 'tid'      => $talk->id,
                 'token'    => $csrfToken,
                 'token_id' => 'delete_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodyNotContains('ok', $response);
@@ -54,10 +60,14 @@ final class DeleteActionTest extends WebTestCase implements TransactionalTestCas
      */
     public function notAllowedToDeleteSomeoneElseTalk()
     {
-        /** @var Talk $talk */
+        /**
+ * @var Talk $talk 
+*/
         $talk = factory(Talk::class, 1)->create()->first();
 
-        /** @var User $otherSpeaker*/
+        /**
+ * @var User $otherSpeaker
+*/
         $otherSpeaker = factory(User::class, 1)->create()->first();
 
         $csrfToken = $this->container->get('security.csrf.token_manager')
@@ -66,11 +76,13 @@ final class DeleteActionTest extends WebTestCase implements TransactionalTestCas
 
         $response = $this
             ->asLoggedInSpeaker($otherSpeaker->id)
-            ->post('/talk/delete', [
+            ->post(
+                '/talk/delete', [
                 'tid'      => $talk->id,
                 'token'    => $csrfToken,
                 'token_id' => 'delete_talk',
-            ]);
+                ]
+            );
 
         $this->assertResponseIsSuccessful($response);
         $this->assertResponseBodyNotContains('ok', $response);

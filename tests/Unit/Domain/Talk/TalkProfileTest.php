@@ -401,9 +401,13 @@ final class TalkProfileTest extends \PHPUnit\Framework\TestCase
 
         $relation
             ->shouldReceive('get')
-            ->andReturn(new Collection([
-                $favorite,
-            ]));
+            ->andReturn(
+                new Collection(
+                    [
+                    $favorite,
+                    ]
+                )
+            );
 
         $talk = m::mock(Talk::class);
 
@@ -447,10 +451,14 @@ final class TalkProfileTest extends \PHPUnit\Framework\TestCase
 
         $relation
             ->shouldReceive('get')
-            ->andReturn(new Collection([
-                $favoriteOne,
-                $favoriteTwo,
-            ]));
+            ->andReturn(
+                new Collection(
+                    [
+                    $favoriteOne,
+                    $favoriteTwo,
+                    ]
+                )
+            );
 
         $talk = m::mock(Talk::class);
 

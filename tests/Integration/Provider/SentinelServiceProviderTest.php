@@ -20,7 +20,9 @@ final class SentinelServiceProviderTest extends WebTestCase
 {
     public function testAllRepositoriesAreSet()
     {
-        /** @var Sentinel $sentinel */
+        /**
+ * @var Sentinel $sentinel 
+*/
         $sentinel = $this->container->get(Sentinel::class);
 
         $this->assertNotNull($sentinel->getUserRepository());

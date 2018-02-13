@@ -22,7 +22,9 @@ use Phinx\Migration\AbstractMigration;
  */
 class ActivateUserMigration extends AbstractMigration
 {
-    /** @var Capsule $capsule */
+    /**
+     * @var Capsule $capsule 
+     */
     public $capsule;
 
     public function bootEloquent()
@@ -30,10 +32,12 @@ class ActivateUserMigration extends AbstractMigration
         $adapter       = $this->getAdapter()->getAdapter();
         $options       = $adapter->getOptions();
         $this->capsule = new Capsule();
-        $this->capsule->addConnection([
+        $this->capsule->addConnection(
+            [
             'driver'   => 'mysql',
             'database' => $options['name'],
-        ]);
+            ]
+        );
         $this->capsule->getConnection()->setPdo($adapter->getConnection());
         $this->capsule->bootEloquent();
         $this->capsule->setAsGlobal();
@@ -42,21 +46,29 @@ class ActivateUserMigration extends AbstractMigration
     public function up()
     {
         $this->bootEloquent();
-        /** @var \Cartalyst\Sentinel\Activations\ActivationRepositoryInterface $activations */
+        /**
+ * @var \Cartalyst\Sentinel\Activations\ActivationRepositoryInterface $activations 
+*/
         $activations = Sentinel::getActivationRepository();
-        EloquentUser::all()->each(function (EloquentUser $user) use ($activations) {
-            $activation = $activations->create($user);
-            $activations->complete($user, $activation->getCode());
-        });
+        EloquentUser::all()->each(
+            function (EloquentUser $user) use ($activations) {
+                $activation = $activations->create($user);
+                $activations->complete($user, $activation->getCode());
+            }
+        );
     }
 
     public function down()
     {
         $this->bootEloquent();
-        /** @var \Cartalyst\Sentinel\Activations\ActivationRepositoryInterface $activations */
+        /**
+ * @var \Cartalyst\Sentinel\Activations\ActivationRepositoryInterface $activations 
+*/
         $activations = Sentinel::getActivationRepository();
-        EloquentUser::all()->each(function (EloquentUser $user) use ($activations) {
-            $activations->remove($user);
-        });
+        EloquentUser::all()->each(
+            function (EloquentUser $user) use ($activations) {
+                $activations->remove($user);
+            }
+        );
     }
 }

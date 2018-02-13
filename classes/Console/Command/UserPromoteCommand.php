@@ -39,10 +39,12 @@ final class UserPromoteCommand extends Command
     {
         $this
             ->setDescription('Promote an existing user to a role')
-            ->setDefinition([
+            ->setDefinition(
+                [
                 new InputArgument('email', InputArgument::REQUIRED, 'Email address of user'),
                 new InputArgument('role-name', InputArgument::REQUIRED, 'Name of role user should be promoted to'),
-            ])
+                ]
+            )
             ->setHelp(
                 <<<EOF
 The <info>%command.name%</info> command promotes a user to a role group for a given environment:
@@ -65,11 +67,13 @@ EOF
 
         $io->title('OpenCFP');
 
-        $io->section(\sprintf(
-            'Promoting account with email "%s" to "%s"',
-            $email,
-            $roleName
-        ));
+        $io->section(
+            \sprintf(
+                'Promoting account with email "%s" to "%s"',
+                $email,
+                $roleName
+            )
+        );
 
         try {
             $this->accountManagement->promoteTo(
@@ -77,32 +81,40 @@ EOF
                 $roleName
             );
         } catch (Auth\UserNotFoundException $exception) {
-            $io->error(\sprintf(
-                'Could not find account with email "%s".',
-                $email
-            ));
+            $io->error(
+                \sprintf(
+                    'Could not find account with email "%s".',
+                    $email
+                )
+            );
 
             return 1;
         } catch (Auth\RoleNotFoundException $exception) {
-            $io->error(\sprintf(
-                'Could not find role with name "%s".',
-                $roleName
-            ));
+            $io->error(
+                \sprintf(
+                    'Could not find role with name "%s".',
+                    $roleName
+                )
+            );
 
             return 1;
         } catch (\Exception $exception) {
-            $io->error(\sprintf(
-                'Could not promote account with email "%s".',
-                $email
-            ));
+            $io->error(
+                \sprintf(
+                    'Could not promote account with email "%s".',
+                    $email
+                )
+            );
 
             return 1;
         }
 
-        $io->success(\sprintf(
-            'Added account with email "%s" to the "%s" group.',
-            $email,
-            $roleName
-        ));
+        $io->success(
+            \sprintf(
+                'Added account with email "%s" to the "%s" group.',
+                $email,
+                $roleName
+            )
+        );
     }
 }

@@ -40,12 +40,14 @@ final class IndexAction
 
         $pagination->setCurrentPage($request->get('page'));
 
-        $content = $this->twig->render('reviewer/speaker/index.twig', [
+        $content = $this->twig->render(
+            'reviewer/speaker/index.twig', [
             'pagination' => $pagination->createView('/reviewer/speakers?'),
             'speakers'   => $pagination->getFanta(),
             'page'       => $pagination->getCurrentPage(),
             'search'     => $search ?: '',
-        ]);
+            ]
+        );
 
         return new HttpFoundation\Response($content);
     }

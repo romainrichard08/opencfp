@@ -31,7 +31,9 @@ final class AirportTest extends WebTestCase
         $this->airports = new Airport();
     }
 
-    /** @test */
+    /**
+     * @test 
+     */
     public function it_queries_airports_table_by_code()
     {
         $airport = $this->airports->withCode('AAC');

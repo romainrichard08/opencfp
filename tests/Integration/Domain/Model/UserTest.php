@@ -29,7 +29,9 @@ final class UserTest extends WebTestCase implements TransactionalTestCase
      */
     public function talksRelationWorks()
     {
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         factory(Talk::class, 3)->create(['user_id' => $speaker->id]);
@@ -45,7 +47,9 @@ final class UserTest extends WebTestCase implements TransactionalTestCase
      */
     public function commentRelationWorks()
     {
-        /** @var User $user */
+        /**
+ * @var User $user 
+*/
         $user = factory(User::class, 1)->create()->first();
 
         factory(TalkComment::class, 3)->create(['user_id' => $user->id]);
@@ -61,7 +65,9 @@ final class UserTest extends WebTestCase implements TransactionalTestCase
      */
     public function metaRelationWorks()
     {
-        /** @var User $user */
+        /**
+ * @var User $user 
+*/
         $user = factory(User::class, 1)->create()->first();
 
         factory(TalkMeta::class, 3)->create(['admin_user_id' => $user->id]);
@@ -112,7 +118,9 @@ final class UserTest extends WebTestCase implements TransactionalTestCase
     {
         $count = $this->faker()->numberBetween(3, 5);
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         factory(Talk::class, $count)->create(['user_id' => $speaker->id]);
@@ -127,10 +135,14 @@ final class UserTest extends WebTestCase implements TransactionalTestCase
     {
         $count = $this->faker()->numberBetween(3, 5);
 
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
-        /** @var Collection $talks */
+        /**
+ * @var Collection $talks 
+*/
         $talks = factory(Talk::class, $count)->create(['user_id' => $speaker->id]);
 
         $talk = $talks->random(1)->first();
@@ -143,7 +155,9 @@ final class UserTest extends WebTestCase implements TransactionalTestCase
      */
     public function getOtherTalksReturnsNothingWhenUserHasNoTalks()
     {
-        /** @var User $speaker */
+        /**
+ * @var User $speaker 
+*/
         $speaker = factory(User::class, 1)->create()->first();
 
         $this->assertCount(0, $speaker->getOtherTalks());

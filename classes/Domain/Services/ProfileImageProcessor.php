@@ -74,13 +74,17 @@ class ProfileImageProcessor
             $speakerPhoto = Image::make($this->publishDir . '/' . $tempFilename);
 
             if ($speakerPhoto->height() > $speakerPhoto->width()) {
-                $speakerPhoto->resize($this->size, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                $speakerPhoto->resize(
+                    $this->size, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    }
+                );
             } else {
-                $speakerPhoto->resize(null, $this->size, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                $speakerPhoto->resize(
+                    null, $this->size, function ($constraint) {
+                        $constraint->aspectRatio();
+                    }
+                );
             }
 
             $speakerPhoto->crop($this->size, $this->size);

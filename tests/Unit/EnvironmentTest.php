@@ -80,9 +80,11 @@ final class EnvironmentTest extends \PHPUnit\Framework\TestCase
      */
     public function testFromServerReturnsEnvironment(string $type)
     {
-        $environment = Environment::fromServer([
+        $environment = Environment::fromServer(
+            [
             'CFP_ENV' => $type,
-        ]);
+            ]
+        );
 
         $this->assertInstanceOf(Environment::class, $environment);
         $this->assertSame($type, (string) $environment);
@@ -131,11 +133,13 @@ final class EnvironmentTest extends \PHPUnit\Framework\TestCase
         ];
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(\sprintf(
-            'Environment needs to be one of "%s"; got "%s" instead.',
-            \implode('", "', $types),
-            $type
-        ));
+        $this->expectExceptionMessage(
+            \sprintf(
+                'Environment needs to be one of "%s"; got "%s" instead.',
+                \implode('", "', $types),
+                $type
+            )
+        );
 
         Environment::fromString($type);
     }

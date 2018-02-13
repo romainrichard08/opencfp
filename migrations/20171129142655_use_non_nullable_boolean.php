@@ -31,10 +31,12 @@ UPDATE users SET $columnName = 0 WHERE $columnName IS NULL;
 SQL;
             $this->query($sql);
 
-            $table->changeColumn($columnName, 'boolean', [
+            $table->changeColumn(
+                $columnName, 'boolean', [
                 'default' => 0,
                 'null'    => false,
-            ]);
+                ]
+            );
         }
     }
 }

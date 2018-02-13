@@ -39,14 +39,16 @@ final class UserCreateCommand extends Command
     {
         $this
             ->setDescription('Creates a new user')
-            ->setDefinition([
+            ->setDefinition(
+                [
                 new InputOption('first_name', 'f', InputOption::VALUE_REQUIRED, 'First Name of the user to create', null),
                 new InputOption('last_name', 'l', InputOption::VALUE_REQUIRED, 'Last Name of the user to create', null),
                 new InputOption('email', 'e', InputOption::VALUE_REQUIRED, 'Email of the user to create', null),
                 new InputOption('password', 'p', InputOption::VALUE_REQUIRED, 'Password of the user to create', null),
                 new InputOption('admin', 'a', InputOption::VALUE_NONE, 'Promote to administrator', null),
                 new InputOption('reviewer', 'r', InputOption::VALUE_NONE, 'Promote to reviewer', null),
-            ]);
+                ]
+            );
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -74,18 +76,22 @@ final class UserCreateCommand extends Command
                 $data
             );
         } catch (Auth\UserExistsException $exception) {
-            $io->error(\sprintf(
-                'A user with the login "%s" already exists.',
-                $data['email']
-            ));
+            $io->error(
+                \sprintf(
+                    'A user with the login "%s" already exists.',
+                    $data['email']
+                )
+            );
 
             return 1;
         }
 
-        $io->writeln(\sprintf(
-            ' * created user with login <info>%s</info>',
-            $data['email']
-        ));
+        $io->writeln(
+            \sprintf(
+                ' * created user with login <info>%s</info>',
+                $data['email']
+            )
+        );
 
         $this->accountManagement->activate($data['email']);
 
@@ -110,10 +116,12 @@ final class UserCreateCommand extends Command
                     $role
                 );
 
-                $io->writeln(\sprintf(
-                    ' * promoted user to <info>%s</info>',
-                    $role
-                ));
+                $io->writeln(
+                    \sprintf(
+                        ' * promoted user to <info>%s</info>',
+                        $role
+                    )
+                );
             }
         }
 
