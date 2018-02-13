@@ -6,3 +6,5 @@ php:
   - 7.0
   - 7.1
   
+script:
+  - if [[ "$WITH_COVERAGE" == "true" ]]; then xdebug-enable; fi
