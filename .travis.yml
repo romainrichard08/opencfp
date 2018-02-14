@@ -1,10 +1,24 @@
-# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
 language: php
 
-# list any PHP version you want to test against
 php:
-  - 7.0
-  - 7.1
-  
+    7.0
+    7.1
+
 script:
-  - if [[ "$WITH_COVERAGE" == "true" ]]; then xdebug-enable; fi
+    - if [[ "$WITH_COVERAGE" == "true" ]]; then xdebug-enable; fi
+
+deploy:
+    provider: heroku
+    api_key:
+        secure: 30e80510-0973-4cb9-bce6-f28be0ce25f8
+    app: romainrichard08-opencfp
+
+notifications:
+    email:
+        recipients:
+            - romain.richard.08@hotmail.fr
+        on_success: never
+        on_failure: always
+
+
+
