@@ -4,8 +4,19 @@ php:
     7.0
     7.1
 
+before_script:
+  # Pour la version avec composer :
+  #- composer global require "squizlabs/php_codesniffer=*"
+  #- php security-checker.phar security:check /path/to/composer.lock
+  - composer install
+
 script:
-    - if [[ "$WITH_COVERAGE" == "true" ]]; then xdebug-enable; fi
+    # Ajouter les commandes pour lancer les tests :
+    # $ phpcs .
+    # Commande pour Security checker = ??
+    - docker run --rm -v $PWD:/app phpqa/phpcs .
+    - docker run --rm -v $PWD:/app phpsa/security-cheaker security:check
+    - phpunit
 
 deploy:
     provider: heroku
@@ -19,6 +30,5 @@ notifications:
             - romain.richard.08@hotmail.fr
         on_success: never
         on_failure: always
-
 
 
