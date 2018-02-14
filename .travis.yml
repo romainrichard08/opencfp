@@ -5,6 +5,14 @@ language: php
 php:
   - 7.0
   - 7.1
-  
+ 
+before_script:
+   
 script:
   - if [[ "$WITH_COVERAGE" == "true" ]]; then xdebug-enable; fi
+
+# relie heroku
+deploy:
+  provider: heroku
+  api_key:
+    secure: "30e80510-0973-4cb9-bce6-f28be0ce25f8"
